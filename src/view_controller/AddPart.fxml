@@ -25,25 +25,25 @@
 
     <!--MAIN INPUT FIELDS-->
     <Label layoutX="80.0" layoutY="85.0" text="ID" />
-    <TextField disable="true" editable="false" layoutX="190" layoutY="81.0" promptText="Auto Gen - Disabled" />
+    <TextField disable="true" editable="false" layoutX="190" layoutY="79.0" promptText="Auto Gen - Disabled" />
 
     <Label layoutX="80.0" layoutY="135.0" text="Name" />
-    <TextField layoutX="190.0" layoutY="131.0" promptText="Part Name" />
+    <TextField layoutX="190.0" layoutY="129.0" promptText="Part Name" />
 
     <Label layoutX="80.0" layoutY="185.0" text="Inv" />
-    <TextField layoutX="190.0" layoutY="181.0" promptText="Inv" />
+    <TextField layoutX="190.0" layoutY="179.0" promptText="Inv" />
 
     <Label layoutX="80.0" layoutY="235.0" text="Price/Cost" />
-    <TextField layoutX="190.0" layoutY="231.0" promptText="Price/Cost" />
+    <TextField layoutX="190.0" layoutY="229.0" promptText="Price/Cost" />
 
     <Label layoutX="80.0" layoutY="285.0" text="Max" />
-    <TextField layoutX="190.0" layoutY="281.0" prefWidth="100.0" promptText="Max" />
+    <TextField layoutX="190.0" layoutY="279.0" prefWidth="100.0" promptText="Max" />
 
     <Label layoutX="330.0" layoutY="285.0" text="Min" />
-    <TextField layoutX="375.0" layoutY="281.0" prefWidth="100.0" promptText="Min" />
+    <TextField layoutX="375.0" layoutY="279.0" prefWidth="100.0" promptText="Min" />
 
-    <Label layoutX="80.0" layoutY="335.0" text="Mach ID" />
-    <TextField layoutX="190.0" layoutY="331.0" prefWidth="115.0" promptText="Comp Nm" />
+    <Label layoutX="80.0" layoutY="335.0" text="Machine ID" />
+    <TextField layoutX="190.0" layoutY="329.0" prefWidth="115.0" promptText="Mach ID />
 
     <!--BUTTONS-->
     <Button layoutX="300.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0"
