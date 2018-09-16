@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view_controller.AddPartController"
+            fx:controller="view_controller.ModifyPartController"
             prefHeight="500.0" prefWidth="550.0">
-    <Label layoutX="22.0" layoutY="30.0" text="Add Part">
+    <Label layoutX="22.0" layoutY="30.0" text="Modify Part">
         <font>
             <Font size="20.0" />
         </font>
@@ -43,12 +43,12 @@
     <TextField layoutX="375.0" layoutY="279.0" prefWidth="100.0" promptText="Min" />
 
     <Label layoutX="80.0" layoutY="335.0" text="Machine ID" />
-    <TextField layoutX="190.0" layoutY="329.0" prefWidth="115.0" promptText="Mach ID />
+    <TextField layoutX="190.0" layoutY="329.0" prefWidth="115.0" promptText="Mach ID" />
 
     <!--BUTTONS-->
     <Button layoutX="300.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0"
             style="-fx-background-color: lightgrey" text="Save" />
     <Button layoutX="400.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0"
             style="-fx-background-color: lightgrey" text="Cancel" />
-</AnchorPane>
 
+</AnchorPane>
