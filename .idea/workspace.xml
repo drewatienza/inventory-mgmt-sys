@@ -74,7 +74,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="20" />
-          <entry key="fxml" value="2892" />
+          <entry key="fxml" value="3148" />
           <entry key="java" value="107" />
         </counts>
       </usages-collector>
@@ -82,7 +82,7 @@
         <counts>
           <entry key="JAVA" value="107" />
           <entry key="PLAIN_TEXT" value="20" />
-          <entry key="XML" value="2892" />
+          <entry key="XML" value="3148" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -119,8 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view_controller/MainScreen.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="105" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="105" />
+            <state relative-caret-position="481">
+              <caret line="37" column="85" lean-forward="true" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="85" />
             </state>
           </provider>
           <provider editor-type-id="JavaFX-Scene-Builder" />
@@ -129,8 +129,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view_controller/AddProduct.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="54" column="74" selection-start-line="54" selection-start-column="74" selection-end-line="54" selection-end-column="74" />
+            <state relative-caret-position="412">
+              <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
             </state>
           </provider>
           <provider editor-type-id="JavaFX-Scene-Builder" />
@@ -239,7 +239,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537118121376" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537119218910" />
     <property name="dynamic.classpath" value="false" />
     <property name="recentsLimit" value="5" />
   </component>
@@ -340,12 +340,12 @@
       <workItem from="1536960203290" duration="5140000" />
       <workItem from="1536965451413" duration="1602000" />
       <workItem from="1537027562101" duration="7195000" />
-      <workItem from="1537059840280" duration="3952000" />
+      <workItem from="1537059840280" duration="5075000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19191000" />
+    <option name="totallyTimeSpent" value="20314000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="975" extended-state="0" />
@@ -439,14 +439,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view_controller/MainScreen.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="105" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="105" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -465,10 +457,18 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/view_controller/MainScreen.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="37" column="85" lean-forward="true" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="85" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view_controller/AddProduct.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="54" column="74" selection-start-line="54" selection-start-column="74" selection-end-line="54" selection-end-column="74" />
+        <state relative-caret-position="412">
+          <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />

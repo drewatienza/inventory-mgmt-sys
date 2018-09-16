@@ -61,6 +61,22 @@
                     <TableColumn fx:id="AddProductPriceCol" prefWidth="140.0" text="Price per Unit" />
                 </columns>
             </TableView>
+
+            <!--SEARCH FIELD-->
+            <Button layoutX="630.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0"
+                    text="Search" />
+            <TextField fx:id="AddProductSearchField" layoutX="743.0" layoutY="40.0" prefWidth="200.0" />
+
+            <!--BUTTONS-->
+            <Button layoutX="900.0" layoutY="220.0" mnemonicParsing="false" text="Add" prefHeight="25.0"
+                    prefWidth="80.0" />
+            <Button layoutX="900.0" layoutY="410.0" mnemonicParsing="false" text="Delete" prefHeight="25.0"
+                    prefWidth="80.0" />
+            <Button layoutX="900.0" layoutY="450.0" mnemonicParsing="false" text="Cancel" prefHeight="25.0"
+                    prefWidth="80.0" />
+            <Button layoutX="800.0" layoutY="450.0" mnemonicParsing="false" text="Save" prefHeight="25.0"
+                    prefWidth="80.0" />
+
         </children>
     </Pane>
 </AnchorPane>
