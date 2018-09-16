@@ -40,6 +40,27 @@
             <Label layoutX="215.0" layoutY="325.0" text="Min" />
             <TextField layoutX="255.0" layoutY="319.0" prefWidth="80.0" promptText="Min" />
 
+            <!--ADD PRODUCT TABLE-->
+            <TableView fx:id="AddProductAddTV" layoutX="440.0" layoutY="90.0" prefWidth="560.0"
+                       prefHeight="120.0">
+                <columns>
+                    <TableColumn fx:id="AddProductPartIDCol" prefWidth="140.0" text="Part ID" />
+                    <TableColumn fx:id="AddProductPartNameCol" prefWidth="140.0" text="Part Name" />
+                    <TableColumn fx:id="AddProductInvCol" prefWidth="140.0" text="Inventory Level" />
+                    <TableColumn fx:id="AddProductPriceCol" prefWidth="140.0" text="Price per Unit" />
+                </columns>
+            </TableView>
+
+            <!--DELETE PRODUCT TABLE-->
+            <TableView fx:id="AddProductAddTV" layoutX="440.0" layoutY="280.0" prefWidth="560.0"
+                       prefHeight="120.0">
+                <columns>
+                    <TableColumn fx:id="AddProductPartIDCol" prefWidth="140.0" text="Part ID" />
+                    <TableColumn fx:id="AddProductPartNameCol" prefWidth="140.0" text="Part Name" />
+                    <TableColumn fx:id="AddProductInvCol" prefWidth="140.0" text="Inventory Level" />
+                    <TableColumn fx:id="AddProductPriceCol" prefWidth="140.0" text="Price per Unit" />
+                </columns>
+            </TableView>
         </children>
     </Pane>
 </AnchorPane>
