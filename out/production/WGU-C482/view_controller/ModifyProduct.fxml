@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view_controller.ModifyProductController"
+            prefHeight="400.0" prefWidth="600.0">
+    <Pane prefHeight="526.0" prefWidth="1136.0" layoutX="12.0" layoutY="12.0"
+          style="-fx-border-style: solid; -fx-border-color: lightgrey; -fx-border-radius: 1.5%">
+        <children>
+            <!--ADD PRODUCT TITLE-->
+            <Label layoutX="35.0" layoutY="50.0" text="Modify Product">
+                <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
+            </Label>
+
+            <!--ADD PRODUCT FIELDS-->
+            <Label layoutX="24.0" layoutY="125.0" text="ID" />
+            <TextField disable="true" editable="false" layoutX="106.0" layoutY="119.0"
+                       promptText="Auto Gen - Disabled" />
+
+            <Label layoutX="24.0" layoutY="175.0" text="Name" />
+            <TextField layoutX="106.0" layoutY="169.0" promptText="Product Name" />
+
+            <Label layoutX="24.0" layoutY="225.0" text="Inv" />
+            <TextField layoutX="106.0" layoutY="219.0" prefWidth="80.0" promptText="Inv" />
+
+            <Label layoutX="24.0" layoutY="275.0" text="Price" />
+            <TextField layoutX="106.0" layoutY="269.0" prefWidth="80.0" promptText="Price" />
+
+            <Label layoutX="24.0" layoutY="325.0" text="Max" />
+            <TextField layoutX="106.0" layoutY="319.0" prefWidth="80.0" promptText="Max" />
+
+            <Label layoutX="215.0" layoutY="325.0" text="Min" />
+            <TextField layoutX="255.0" layoutY="319.0" prefWidth="80.0" promptText="Min" />
+
+            <!--ADD PRODUCT TABLE-->
+            <TableView fx:id="AddProductAddTV" layoutX="440.0" layoutY="90.0" prefWidth="560.0"
+                       prefHeight="120.0">
+                <columns>
+                    <TableColumn fx:id="AddProductPartIDCol" prefWidth="140.0" text="Part ID" />
+                    <TableColumn fx:id="AddProductPartNameCol" prefWidth="140.0" text="Part Name" />
+                    <TableColumn fx:id="AddProductInvCol" prefWidth="140.0" text="Inventory Level" />
+                    <TableColumn fx:id="AddProductPriceCol" prefWidth="140.0" text="Price per Unit" />
+                </columns>
+            </TableView>
+
+            <!--DELETE PRODUCT TABLE-->
+            <TableView fx:id="AddProductAddTV" layoutX="440.0" layoutY="280.0" prefWidth="560.0"
+                       prefHeight="120.0">
+                <columns>
+                    <TableColumn fx:id="AddProductPartIDCol" prefWidth="140.0" text="Part ID" />
+                    <TableColumn fx:id="AddProductPartNameCol" prefWidth="140.0" text="Part Name" />
+                    <TableColumn fx:id="AddProductInvCol" prefWidth="140.0" text="Inventory Level" />
+                    <TableColumn fx:id="AddProductPriceCol" prefWidth="140.0" text="Price per Unit" />
+                </columns>
+            </TableView>
+
+            <!--SEARCH FIELD-->
+            <Button layoutX="630.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0"
+                    text="Search" />
+            <TextField fx:id="AddProductSearchField" layoutX="743.0" layoutY="40.0" prefWidth="200.0" />
+
+            <!--BUTTONS-->
+            <Button layoutX="900.0" layoutY="220.0" mnemonicParsing="false" text="Add" prefHeight="25.0"
+                    prefWidth="80.0" />
+            <Button layoutX="900.0" layoutY="410.0" mnemonicParsing="false" text="Delete" prefHeight="25.0"
+                    prefWidth="80.0" />
+            <Button layoutX="900.0" layoutY="450.0" mnemonicParsing="false" text="Cancel" prefHeight="25.0"
+                    prefWidth="80.0" />
+            <Button layoutX="800.0" layoutY="450.0" mnemonicParsing="false" text="Save" prefHeight="25.0"
+                    prefWidth="80.0" />
+
+        </children>
+    </Pane>
+</AnchorPane>
