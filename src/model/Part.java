@@ -37,43 +37,43 @@ public abstract class Part {
         return partID;
     }
 
-    public String getName() {
+    public String getPartName() {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
+    public StringProperty partNameProperty() {
         return name;
     }
 
-    public double getPrice() {
+    public double getPartPrice() {
         return price.get();
     }
 
-    public DoubleProperty priceProperty() {
+    public DoubleProperty partPriceProperty() {
         return price;
     }
 
-    public int getInStock() {
+    public int getPartInStock() {
         return inStock.get();
     }
 
-    public IntegerProperty inStockProperty() {
+    public IntegerProperty partInStockProperty() {
         return inStock;
     }
 
-    public int getMin() {
+    public int getPartMin() {
         return min.get();
     }
 
-    public IntegerProperty minProperty() {
+    public IntegerProperty partMinProperty() {
         return min;
     }
 
-    public int getMax() {
+    public int getPartMax() {
         return max.get();
     }
 
-    public IntegerProperty maxProperty() {
+    public IntegerProperty partMaxProperty() {
         return max;
     }
 
@@ -82,23 +82,23 @@ public abstract class Part {
         this.partID.set(partID);
     }
 
-    public void setName(String name) {
+    public void setPartName(String name) {
         this.name.set(name);
     }
 
-    public void setPrice(double price) {
+    public void setPartPrice(double price) {
         this.price.set(price);
     }
 
-    public void setInStock(int inStock) {
+    public void setPartInStock(int inStock) {
         this.inStock.set(inStock);
     }
 
-    public void setMin(int min) {
+    public void setPartMin(int min) {
         this.min.set(min);
     }
 
-    public void setMax(int max) {
+    public void setPartMax(int max) {
         this.max.set(max);
     }
 }
