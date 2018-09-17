@@ -3,8 +3,6 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.awt.color.ProfileDataException;
-
 public class Inventory {
 
     private static ObservableList<Product> productInventory = FXCollections.observableArrayList();
