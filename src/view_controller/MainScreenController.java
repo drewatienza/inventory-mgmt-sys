@@ -4,6 +4,7 @@ package view_controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,8 +19,9 @@ import javafx.stage.Stage;
 import model.Part;
 import model.Product;
 import model.Inventory;
+import static model.Inventory.getPartInventory;
+import static model.Inventory.getProductInventory;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,6 +42,13 @@ public class MainScreenController implements Initializable {
     @FXML
     private TextField PartSearchField;
 
+    private static Part modifyPart;
+    private static int modifyPartIndex;
+
+    public static int partToModifyIndex() {
+        return modifyPartIndex;
+    }
+
     // PRODUCT TABLEVIEW
     @FXML
     private TableView<Product>  MainProducts;
@@ -53,6 +62,13 @@ public class MainScreenController implements Initializable {
     private TableColumn<Product, Double> MainProductPriceColumn;
     @FXML
     private TextField ProductSearchField;
+
+    private static Product modifyProduct;
+    private static int modifyProductIndex;
+
+    public static int productToModifyIndex() {
+        return modifyProductIndex;
+    }
 
     // PARTS SECTION
 
@@ -78,13 +94,26 @@ public class MainScreenController implements Initializable {
 
     // Add Part
     @FXML
-    void MainScrAddPart(javafx.event.ActionEvent event) throws IOException {
+    void MainScrAddPart(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent addParts = FXMLLoader.load(getClass().getResource("AddPart.fxml"));
-        Scene scene = new Scene (addParts, 550, 500);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+        Scene addPartScene = new Scene (addParts, 550, 500);
+        Stage addPartWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        addPartWindow.setScene(addPartScene);
+        addPartWindow.show();
     }
+
+    // Modify Part
+    @FXML
+    void MainScrModifyPart(ActionEvent actionEvent) throws IOException {
+        modifyPart = MainParts.getSelectionModel().getSelectedItem();
+        modifyPartIndex = getPartInventory().indexOf(modifyPart);
+        Parent modPartParent = FXMLLoader.load(getClass().getResource("ModifyPart.fxml"));
+        Scene modPartScene = new Scene (modPartParent, 550, 500);
+        Stage modPartWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        modPartWindow.setScene(modPartScene);
+        modPartWindow.show();
+    }
+
 
     // PRODUCTS SECTION
 
@@ -110,12 +139,24 @@ public class MainScreenController implements Initializable {
 
     // Add Product
     @FXML
-    void MainScrProductAdd(javafx.event.ActionEvent event) throws IOException {
+    void MainScrProductAdd(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent addProducts = FXMLLoader.load(getClass().getResource("AddProduct.fxml"));
-        Scene scene = new Scene(addProducts, 1160,550);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+        Scene addProductScene = new Scene(addProducts, 1160,550);
+        Stage addProductWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        addProductWindow.setScene(addProductScene);
+        addProductWindow.show();
+    }
+
+    // Modify Product
+    @FXML
+    void MainScrProductMod(ActionEvent actionEvent) throws IOException {
+        modifyProduct = MainProducts.getSelectionModel().getSelectedItem();
+        modifyProductIndex = getProductInventory().indexOf(modifyProduct);
+        Parent modProdParent = FXMLLoader.load(getClass().getResource("ModifyProduct.fxml"));
+        Scene modProdScene = new Scene(modProdParent, 1160, 550);
+        Stage modProdWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        modProdWindow.setScene(modProdScene);
+        modProdWindow.show();
     }
 
     @Override

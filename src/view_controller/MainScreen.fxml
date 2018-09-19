@@ -40,7 +40,7 @@
                 <Button fx:id="MainScrAddPartBtn" layoutX="180.0" layoutY="320.0" mnemonicParsing="false" text="Add"
                         onAction="#MainScrAddPart" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" text="Modify"
-                        prefHeight="25.0" prefWidth="100.0" />
+                        onAction="#MainScrModifyPart" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="400.0" layoutY="320.0" mnemonicParsing="false" text="Delete"
                         prefHeight="25.0" prefWidth="100.0" />
             </children>
@@ -70,7 +70,7 @@
                 <Button fx:id="MainScrAddProdBtn" layoutX="180.0" layoutY="320.0" mnemonicParsing="false" text="Add"
                         onAction="#MainScrProductAdd" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" text="Modify"
-                        prefHeight="25.0" prefWidth="100.0" />
+                        onAction="#MainScrProductMod" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="400.0" layoutY="320.0" mnemonicParsing="false" text="Delete"
                         prefHeight="25.0" prefWidth="100.0" />
             </children>
