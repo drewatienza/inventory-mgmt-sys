@@ -54,9 +54,11 @@ public class MainScreenController implements Initializable {
     @FXML
     private TextField ProductSearchField;
 
-    // PARTS
+    // PARTS SECTION
+
+    // Search Part
     @FXML
-    void MainScrPartSearch (javafx.event.ActionEvent event) throws IOException {
+    void MainScrPartSearch() {
         String partSearch = PartSearchField.getText();
         int partIndex = -1;
         if (Inventory.lookupPart(partSearch) == -1) {
@@ -74,6 +76,7 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    // Add Part
     @FXML
     void MainScrAddPart(javafx.event.ActionEvent event) throws IOException {
         Parent addParts = FXMLLoader.load(getClass().getResource("AddPart.fxml"));
@@ -83,8 +86,11 @@ public class MainScreenController implements Initializable {
         window.show();
     }
 
-    // PRODUCTS
-    void MainScrProductSearch (javafx.event.ActionEvent event) throws IOException {
+    // PRODUCTS SECTION
+
+    // Search Product
+    @FXML
+    void MainScrProductSearch() {
         String productSearch = ProductSearchField.getText();
         int prodIndex = -1;
         if (Inventory.lookupProduct(productSearch) == -1) {
@@ -102,6 +108,7 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    // Add Product
     @FXML
     void MainScrProductAdd(javafx.event.ActionEvent event) throws IOException {
         Parent addProducts = FXMLLoader.load(getClass().getResource("AddProduct.fxml"));
