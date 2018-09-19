@@ -39,42 +39,45 @@ public class Inventory {
         productInventory.remove(product);
     }
 
-//    public static boolean validateProdRemoval(Product product) {
-//        boolean foundProduct = false;
-//        for (int i = 0; i < productInventory.size(); i++) {
-//            if (productInventory.get(i).getProductParts().contains(part)) {
-//                foundProduct = true;
-//            }
-//        }
-//        return foundProduct;
-//    }
+    public static boolean validateProdRemoval(Product product) {
+        boolean foundProduct = false;
+        int productID = product.getProductID();
+        for (int i = 0; i < productInventory.size(); i++) {
+            if (productInventory.get(i).getProductID() == productID) {
+                if (!productInventory.get(i).getProductParts().isEmpty()) {
+                    foundProduct = true;
+                }
+            }
+        }
+        return foundProduct;
+    }
 
-//    public static int lookupProduct(String searchProduct) {
-//        boolean foundProduct = false;
-//        int index = 0;
-//        if (isInteger(searchProduct)) {
-//            for (int i = 0; i < productInventory.size(); i++) {
-//                if (Integer.parseInt(searchProduct) == productInventory.get(i).getProductID()) {
-//                    index = 1;
-//                    foundProduct = true;
-//                }
-//            }
-//        } else {
-//            for (int i = 0; i < productInventory.size(); i++) {
-//                (searchProduct.equals(productInventory.get(i).getProductName())) {
-//                    index = i;
-//                    foundProduct = true;
-//                }
-//            }
-//        }
-//
-//        if (foundProduct) {
-//            return index;
-//        } else {
-//            System.out.println("Product was not found.");
-//            return -1;
-//        }
-//    }
+    public static int lookupProduct(String searchProduct) {
+        boolean foundProduct = false;
+        int index = 0;
+        if (isInteger(searchProduct)) {
+            for (int i = 0; i < productInventory.size(); i++) {
+                if (Integer.parseInt(searchProduct) == productInventory.get(i).getProductID()) {
+                    index = 1;
+                    foundProduct = true;
+                }
+            }
+        } else {
+            for (int i = 0; i < productInventory.size(); i++) {
+                if (searchProduct.equals(productInventory.get(i).getProductName())) {
+                    index = i;
+                    foundProduct = true;
+                }
+            }
+        }
+
+        if (foundProduct) {
+            return index;
+        } else {
+            System.out.println("Product was not found.");
+            return -1;
+        }
+    }
 
     public static void updateProduct (int index, Product product) {
         productInventory.set(index, product);

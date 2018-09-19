@@ -77,7 +77,7 @@ public class Product {
         return max;
     }
 
-    public int getPropertyID() {
+    public int getProductID() {
         return productID.get();
     }
 
