@@ -88,11 +88,11 @@ public class Inventory {
         partInventory.add(part);
     }
 
-    public static void deletePart(Part part) {
+    public static void removePart(Part part) {
         partInventory.remove(part);
     }
 
-    public static boolean validateProdRemoval(Part part) {
+    public static boolean validatePartRemoval(Part part) {
         boolean foundPart = false;
         for (int i = 0; i < productInventory.size(); i++) {
             if (productInventory.get(i).getProductParts().contains(part)) {

@@ -42,7 +42,7 @@
                 <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" text="Modify"
                         onAction="#MainScrModifyPart" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="400.0" layoutY="320.0" mnemonicParsing="false" text="Delete"
-                        prefHeight="25.0" prefWidth="100.0" />
+                        onAction="#MainScrDelPart" prefHeight="25.0" prefWidth="100.0" />
             </children>
         </Pane>
 
@@ -72,12 +72,12 @@
                 <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" text="Modify"
                         onAction="#MainScrProductMod" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="400.0" layoutY="320.0" mnemonicParsing="false" text="Delete"
-                        prefHeight="25.0" prefWidth="100.0" />
+                        onAction="#MainScrProductDel" prefHeight="25.0" prefWidth="100.0" />
             </children>
         </Pane>
 
         <!--EXIT BUTTON-->
         <Button fx:id="MainExitBtn" layoutX="980.0" layoutY="500.0" mnemonicParsing="false" prefHeight="30.0"
-                prefWidth="100.0" text="Exit" style="-fx-background-color: lightgrey" />
+                prefWidth="100.0" text="Exit" onAction="#ExitBtn" />
     </children>
 </AnchorPane>
