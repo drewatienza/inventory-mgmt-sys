@@ -1,8 +1,6 @@
 package model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public abstract class Part {
 
@@ -14,18 +12,13 @@ public abstract class Part {
     private final IntegerProperty max;
 
     // CONSTRUCTOR
-    public Part(IntegerProperty partID,
-                StringProperty name,
-                DoubleProperty price,
-                IntegerProperty inStock,
-                IntegerProperty min,
-                IntegerProperty max) {
-        this.partID = partID;
-        this.name = name;
-        this.price = price;
-        this.inStock = inStock;
-        this.min = min;
-        this.max = max;
+    public Part() {
+        partID = new SimpleIntegerProperty();
+        name = new SimpleStringProperty();
+        price = new SimpleDoubleProperty();
+        inStock = new SimpleIntegerProperty();
+        min = new SimpleIntegerProperty();
+        max = new SimpleIntegerProperty();
     }
 
     // GETTERS
@@ -100,5 +93,32 @@ public abstract class Part {
 
     public void setPartMax(int max) {
         this.max.set(max);
+    }
+
+    // VALIDATION
+    public static String isValid (
+            String name,
+            int inv,
+            double price,
+            int max,
+            int min,
+            String errMessage
+    ) {
+        if (name == null) {
+            errMessage = "The name field is required.";
+        }
+        if (inv < 1) {
+            errMessage = "The inventory cannot have less than 1.";
+        }
+        if (price <= 0) {
+            errMessage = "The price must be more than $0.";
+        }
+        if (inv < min || inv > max) {
+            errMessage = "The inventory must be between the Min and Max values.";
+        }
+        if (max < min) {
+            errMessage = "The Min value cannot be greater than the Max value.";
+        }
+        return  errMessage;
     }
 }

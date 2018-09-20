@@ -19,36 +19,37 @@
 
     <!--RADIO BUTTONS-->
     <RadioButton fx:id="addPartInHouseRadio" layoutX="250.0" layoutY="35.0" mnemonicParsing="false"
-                 selected="true" text="In-House" />
+                 selected="true" text="In-House" onAction="#radioAddPartInHouse" />
     <RadioButton fx:id="addPartOutsourcedRadio" layoutX="350.0" layoutY="35.0" mnemonicParsing="false"
-                 text="Outsourced" />
+                 text="Outsourced" onAction="#radioAddPartOutsourced" />
 
     <!--MAIN INPUT FIELDS-->
     <Label layoutX="80.0" layoutY="85.0" text="ID" />
-    <TextField disable="true" editable="false" layoutX="190" layoutY="79.0" promptText="Auto Gen - Disabled" />
+    <TextField fx:id="addPartIdField" disable="true" editable="false" layoutX="190" layoutY="79.0"
+               promptText="Auto Gen - Disabled" />
 
     <Label layoutX="80.0" layoutY="135.0" text="Name" />
-    <TextField layoutX="190.0" layoutY="129.0" promptText="Part Name" />
+    <TextField fx:id="addPartNameField" layoutX="190.0" layoutY="129.0" promptText="Part Name" />
 
     <Label layoutX="80.0" layoutY="185.0" text="Inv" />
-    <TextField layoutX="190.0" layoutY="179.0" promptText="Inv" />
+    <TextField fx:id="addPartInvField" layoutX="190.0" layoutY="179.0" promptText="Inv" />
 
     <Label layoutX="80.0" layoutY="235.0" text="Price/Cost" />
-    <TextField layoutX="190.0" layoutY="229.0" promptText="Price/Cost" />
+    <TextField fx:id="addPartPriceField" layoutX="190.0" layoutY="229.0" promptText="Price/Cost" />
 
     <Label layoutX="80.0" layoutY="285.0" text="Max" />
-    <TextField layoutX="190.0" layoutY="279.0" prefWidth="100.0" promptText="Max" />
+    <TextField fx:id="addPartMaxField" layoutX="190.0" layoutY="279.0" prefWidth="100.0" promptText="Max" />
 
     <Label layoutX="330.0" layoutY="285.0" text="Min" />
-    <TextField layoutX="375.0" layoutY="279.0" prefWidth="100.0" promptText="Min" />
+    <TextField fx:id="addPartMinField" layoutX="375.0" layoutY="279.0" prefWidth="100.0" promptText="Min" />
 
-    <Label layoutX="80.0" layoutY="335.0" text="Machine ID" />
-    <TextField layoutX="190.0" layoutY="329.0" prefWidth="115.0" promptText="Mach ID" />
+    <Label fx:id="switchAddPartLabel" layoutX="80.0" layoutY="335.0" text="Machine ID" />
+    <TextField fx:id="switchAddPartField" layoutX="190.0" layoutY="329.0" prefWidth="115.0" promptText="Mach ID" />
 
     <!--BUTTONS-->
     <Button layoutX="300.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0"
-            style="-fx-background-color: lightgrey" text="Save" />
+            onAction="#addPartSaveBtn" text="Save" />
     <Button layoutX="400.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0"
-            style="-fx-background-color: lightgrey" text="Cancel" />
+            onAction="#addPartCancelBtn" text="Cancel" />
 </AnchorPane>
 

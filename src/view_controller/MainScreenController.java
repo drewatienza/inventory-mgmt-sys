@@ -41,7 +41,6 @@ public class MainScreenController implements Initializable {
     @FXML
     private TextField PartSearchField;
 
-    private static Part modifyPart;
     private static int modifyPartIndex;
 
     public static int partToModifyIndex() {
@@ -62,7 +61,6 @@ public class MainScreenController implements Initializable {
     @FXML
     private TextField ProductSearchField;
 
-    private static Product modifyProduct;
     private static int modifyProductIndex;
 
     public static int productToModifyIndex() {
@@ -86,7 +84,7 @@ public class MainScreenController implements Initializable {
         String partSearch = PartSearchField.getText();
         int partIndex = -1;
         if (Inventory.lookupPart(partSearch) == -1) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Search Problem");
             alert.setHeaderText("Part Not Found");
             alert.setContentText("The part you entered does not match any current part!");
@@ -113,7 +111,7 @@ public class MainScreenController implements Initializable {
     // Modify Part
     @FXML
     void MainScrModifyPart(ActionEvent actionEvent) throws IOException {
-        modifyPart = MainParts.getSelectionModel().getSelectedItem();
+        Part modifyPart = MainParts.getSelectionModel().getSelectedItem();
         modifyPartIndex = getPartInventory().indexOf(modifyPart);
         Parent modPartParent = FXMLLoader.load(getClass().getResource("ModifyPart.fxml"));
         Scene modPartScene = new Scene (modPartParent, 550, 500);
@@ -127,7 +125,7 @@ public class MainScreenController implements Initializable {
     void MainScrDelPart(ActionEvent actionEvent) {
         Part part = MainParts.getSelectionModel().getSelectedItem();
         if (validatePartRemoval(part)) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Part Deletion Error!");
             alert.setHeaderText("Part cannot be deleted!");
             alert.setContentText("The part you are trying to delete is currently being used in one or more products.");
@@ -158,7 +156,7 @@ public class MainScreenController implements Initializable {
         String productSearch = ProductSearchField.getText();
         int prodIndex = -1;
         if (Inventory.lookupProduct(productSearch) == -1) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Search Problem");
             alert.setHeaderText("Part Not Found");
             alert.setContentText("The part you entered does not match any current product!");
@@ -185,7 +183,7 @@ public class MainScreenController implements Initializable {
     // Modify Product
     @FXML
     void MainScrProductMod(ActionEvent actionEvent) throws IOException {
-        modifyProduct = MainProducts.getSelectionModel().getSelectedItem();
+        Product modifyProduct = MainProducts.getSelectionModel().getSelectedItem();
         modifyProductIndex = getProductInventory().indexOf(modifyProduct);
         Parent modProdParent = FXMLLoader.load(getClass().getResource("ModifyProduct.fxml"));
         Scene modProdScene = new Scene(modProdParent, 1160, 550);
@@ -218,7 +216,7 @@ public class MainScreenController implements Initializable {
     // EXIT BUTTON
     @FXML
     private void ExitBtn(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initModality(Modality.NONE);
         alert.setTitle("EXIT");
         alert.setHeaderText("Exit Confirmation!");

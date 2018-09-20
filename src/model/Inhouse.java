@@ -1,13 +1,15 @@
 package model;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
-public class Inhouse {
+public class Inhouse extends Part {
 
     private final IntegerProperty machineID;
 
-    public Inhouse(IntegerProperty machineID) {
-        this.machineID = machineID;
+    public Inhouse() {
+        super();
+        machineID = new SimpleIntegerProperty();
     }
 
     public int getMachineID() {
