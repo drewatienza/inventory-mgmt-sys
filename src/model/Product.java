@@ -17,12 +17,7 @@ public class Product {
     private final IntegerProperty productID;
 
     // CONSTRUCTORS
-    public Product(StringProperty name,
-                   DoubleProperty price,
-                   IntegerProperty inStock,
-                   IntegerProperty min,
-                   IntegerProperty max,
-                   IntegerProperty productID) {
+    public Product() {
         this.name = name;
         this.price = price;
         this.inStock = inStock;
@@ -112,5 +107,36 @@ public class Product {
 
     public void setProductID(int productID) {
         this.productID.set(productID);
+    }
+
+    public void setProdParts (ObservableList<Part> parts) {
+        this.parts = parts;
+    }
+
+    // VALIDATION
+    public static String isValid(
+            String name,
+            int inv,
+            double price,
+            int max,
+            int min,
+            ObservableList<Part> currentParts, String errMessage
+    ) {
+        if (name == null) {
+            errMessage = "The name field is required.";
+        }
+        if (inv < 1) {
+            errMessage = "The inventory cannot have less than 1.";
+        }
+        if (price <= 0) {
+            errMessage = "The price must be more than $0.";
+        }
+        if (inv < min || inv > max) {
+            errMessage = "The inventory must be between the Min and Max values.";
+        }
+        if (max < min) {
+            errMessage = "The Min value cannot be greater than the Max value.";
+        }
+        return  errMessage;
     }
 }
