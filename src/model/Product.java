@@ -1,8 +1,6 @@
 package model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,12 +16,12 @@ public class Product {
 
     // CONSTRUCTORS
     public Product() {
-        this.name = name;
-        this.price = price;
-        this.inStock = inStock;
-        this.min = min;
-        this.max = max;
-        this.productID = productID;
+        name = new SimpleStringProperty();
+        price = new SimpleDoubleProperty();
+        inStock = new SimpleIntegerProperty();
+        min = new SimpleIntegerProperty();
+        max = new SimpleIntegerProperty();
+        productID = new SimpleIntegerProperty();
     }
 
     // GETTERS

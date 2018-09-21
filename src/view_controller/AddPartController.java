@@ -113,10 +113,10 @@ public class AddPartController implements Initializable {
                 }
 
                 Parent partSave = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-                Scene saveScene = new Scene(partSave);
-                Stage saveWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                saveWindow.setScene(saveScene);
-                saveWindow.show();
+                Scene s = new Scene(partSave);
+                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                window.setScene(s);
+                window.show();
             }
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -138,15 +138,15 @@ public class AddPartController implements Initializable {
 
         if (confirm.get() == ButtonType.OK) {
             Parent partCancel = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-            Scene cancelScene = new Scene(partCancel);
-            Stage cancelWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            cancelWindow.setScene(cancelScene);
-            cancelWindow.show();
+            Scene s = new Scene(partCancel);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(s);
+            window.show();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        partID = Inventory.getPartIdCount();
     }
 }
