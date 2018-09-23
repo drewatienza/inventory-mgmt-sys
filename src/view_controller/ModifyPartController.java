@@ -19,6 +19,10 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static model.Inventory.getProductInventory;
+import static view_controller.MainScreenController.partToModifyIndex;
+import static model.Inventory.getPartInventory;
+
 public class ModifyPartController implements Initializable {
 
     @FXML
@@ -45,6 +49,7 @@ public class ModifyPartController implements Initializable {
     private boolean inHouse;
     private String exception = new String();
     private int partID;
+    private int partIndex = partToModifyIndex();
 
     // RADIO BUTTONS
     @FXML
@@ -150,7 +155,14 @@ public class ModifyPartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Part part = getPartInventory().get(partIndex);
+        partID = getPartInventory().get(partIndex).getPartID();
+        modPartIdField.setText("Auto-Gen: " + partID);
+        modPartNameField.setText(part.getPartName());
+        modPartInvField.setText(Integer.toString(part.getPartInStock()));
+        modPartPriceField.setText(Double.toString(part.getPartPrice()));
+        modPartMaxField.setText((Integer.toString(part.getPartMax())));
+        modPartMinField.setText((Integer.toString(part.getPartMin())));
     }
 
 
