@@ -22,7 +22,7 @@
 
             <!--ADD PRODUCT FIELDS-->
             <Label layoutX="24.0" layoutY="125.0" text="ID" />
-            <TextField disable="true" editable="false" layoutX="106.0" layoutY="119.0"
+            <TextField fx:id="addProdIdNumField" disable="true" editable="false" layoutX="106.0" layoutY="119.0"
                        promptText="Auto Gen - Disabled" />
 
             <Label layoutX="24.0" layoutY="175.0" text="Name" />

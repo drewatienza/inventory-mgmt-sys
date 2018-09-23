@@ -30,11 +30,14 @@ import java.util.ResourceBundle;
 
 public class AddProductController implements Initializable {
 
+
     private ObservableList<Part> currentParts = FXCollections.observableArrayList();
     private ObservableList<Part> tempPartList = FXCollections.observableArrayList();
     private String isValidException = new String();
     private int productID;
 
+    @FXML
+    private TextField addProdIdNumField;
     @FXML
     private TextField addProdNameField;
     @FXML
@@ -68,7 +71,7 @@ public class AddProductController implements Initializable {
     @FXML
     private TextField addProdSearchField;
 
-    // ADD
+    // ADD BUTTON
     @FXML
     void addProdAdd(ActionEvent actionEvent) {
         Part part = addProdAddTV.getSelectionModel().getSelectedItem();
@@ -80,41 +83,21 @@ public class AddProductController implements Initializable {
         delProdAddTV.setItems(currentParts);
     }
 
-    // DELETE
+    // DELETE BUTTON
     @FXML
     void addProdDel(ActionEvent actionEvent) {
-        Part part = delProdAddTV.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initModality(Modality.NONE);
-        alert.setTitle("Delete");
-        alert.setHeaderText("Confirm Delete");
-        alert.setContentText("Are you sure you want to delete " + part.getPartName() + "?");
-        Optional<ButtonType> confirm = alert.showAndWait();
-        if (confirm.get() == ButtonType.OK) {
-            currentParts.remove(part);
-        }
+        ModifyProductController.confirmDelAlert(delProdAddTV, currentParts);
     }
 
-    // SEARCH
+    // SEARCH BUTTON
     @FXML
     void addProdSearch(ActionEvent actionEvent) {
         String searchPart = addProdSearchField.getText();
         int partIndex = -1;
-        if(Inventory.lookupPart(searchPart) == -1) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setHeaderText("Search Error");
-            alert.setContentText("The part you entered does not match any current parts.");
-            alert.showAndWait();
-        } else {
-            partIndex = Inventory.lookupPart(searchPart);
-            Part tempPart = getPartInventory().get(partIndex);
-            tempPartList.add(tempPart);
-            addProdAddTV.setItems(tempPartList);
-        }
+        ModifyProductController.prodSearchHelper(searchPart, tempPartList, addProdAddTV);
     }
 
-    // CANCEL
+    // CANCEL BUTTON
     @FXML
     void addProdCancel(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -186,6 +169,8 @@ public class AddProductController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        updateDelProdAddTV();
+        productID = Inventory.getProductIdCount();
+        addProdIdNumField.setText("Auto-gen: " + productID);
     }
 }
