@@ -172,5 +172,14 @@ public class AddProductController implements Initializable {
         updateDelProdAddTV();
         productID = Inventory.getProductIdCount();
         addProdIdNumField.setText("Auto-gen: " + productID);
+
+        addProdPartIDCol.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
+        addProdPartNameCol.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
+        addProdInvCol.setCellValueFactory(cellData -> cellData.getValue().partInStockProperty().asObject());
+        addProdPriceCol.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
+        delProdPartIDCol.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
+        delProdPartNameCol.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
+        delProdInvCol.setCellValueFactory(cellData -> cellData.getValue().partInStockProperty().asObject());
+        delProdPriceCol.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
     }
 }
