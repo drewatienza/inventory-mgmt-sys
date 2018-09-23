@@ -14,8 +14,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Part;
 import model.Inventory;
-import static model.Inventory.getPartInventory;
 import model.Product;
+import model.Product;
+import static model.Inventory.getPartInventory;
+import static model.Inventory.getProductInventory;
+import static view_controller.MainScreenController.productToModifyIndex;
+
 
 
 import java.io.IOException;
@@ -29,6 +33,7 @@ public class ModifyProductController implements Initializable {
     private ObservableList<Part> tempPartList = FXCollections.observableArrayList();
     private String isValidException = new String();
     private int productID;
+    private int productIndex = productToModifyIndex();
 
     @FXML
     private TextField modProdIdNumField;
@@ -85,14 +90,22 @@ public class ModifyProductController implements Initializable {
 
     static void confirmDelAlert(TableView<Part> delProdModTV, ObservableList<Part> currentParts) {
         Part part = delProdModTV.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initModality(Modality.NONE);
-        alert.setTitle("Delete");
-        alert.setHeaderText("Confirm Delete");
-        alert.setContentText("Are you sure you want to delete " + part.getPartName() + "?");
-        Optional<ButtonType> confirm = alert.showAndWait();
-        if (confirm.get() == ButtonType.OK) {
-            currentParts.remove(part);
+        if (part == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Error");
+            alert.setContentText("There is nothing selected to delete.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Confirm Delete");
+            alert.setContentText("Are you sure you want to delete " + part.getPartName() + "?");
+            Optional<ButtonType> confirm = alert.showAndWait();
+            if (confirm.get() == ButtonType.OK) {
+                currentParts.remove(part);
+            }
         }
     }
 
@@ -196,5 +209,18 @@ public class ModifyProductController implements Initializable {
         updateDelProdModTV();
         productID = Inventory.getProductIdCount();
         modProdIdNumField.setText("Auto-gen: " + productID);
+
+        Product product = getProductInventory().get(productIndex);
+        modProdNameField.setText(product.getProductName());
+
+        modProdPartIDCol.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
+        modProdPartNameCol.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
+        modProdInvCol.setCellValueFactory(cellData -> cellData.getValue().partInStockProperty().asObject());
+        modProdPriceCol.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
+        delModProdPartIDCol.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
+        delModProdPartNameCol.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
+        delModProdInvCol.setCellValueFactory(cellData -> cellData.getValue().partInStockProperty().asObject());
+        delModProdPriceCol.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
+
     }
 }
