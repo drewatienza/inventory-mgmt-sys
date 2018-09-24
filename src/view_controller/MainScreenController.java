@@ -31,13 +31,13 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableView<Part>  MainParts;
     @FXML
-    private TableColumn<Part, Integer> MaintPartIdColumn;
+    private TableColumn<Part, Integer> mainPartIdColumn;
     @FXML
-    private TableColumn<Part, String> MainPartNameColumn;
+    private TableColumn<Part, String> mainPartNameColumn;
     @FXML
-    private TableColumn<Part, Integer> MainPartInvColumn;
+    private TableColumn<Part, Integer> mainPartInvColumn;
     @FXML
-    private TableColumn<Part, Double> MainPartPriceColumn;
+    private TableColumn<Part, Double> mainPartPriceColumn;
     @FXML
     private TextField PartSearchField;
 
@@ -51,13 +51,13 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableView<Product>  MainProducts;
     @FXML
-    private TableColumn<Product, Integer> MaintProductIdColumn;
+    private TableColumn<Product, Integer> mainProdIdColumn;
     @FXML
-    private TableColumn<Product, String> MainProductNameColumn;
+    private TableColumn<Product, String> mainProdNameColumn;
     @FXML
-    private TableColumn<Product, Integer> MainProductInvColumn;
+    private TableColumn<Product, Integer> mainProdInvColumn;
     @FXML
-    private TableColumn<Product, Double> MainProductPriceColumn;
+    private TableColumn<Product, Double> mainProdPriceColumn;
     @FXML
     private TextField ProductSearchField;
 
@@ -68,11 +68,11 @@ public class MainScreenController implements Initializable {
     }
 
     // Parts Update Table View
-    public void updatePartsTableView() {
+    public void updatePartsTV() {
         MainParts.setItems(getPartInventory());
     }
     // Update Products Table View
-    public void updateProductsTableView() {
+    public void updateProductsTV() {
         MainProducts.setItems(getProductInventory());
     }
 
@@ -85,9 +85,9 @@ public class MainScreenController implements Initializable {
         int partIndex = -1;
         if (Inventory.lookupPart(partSearch) == -1) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Search Problem");
+            alert.setTitle("SEARCH ERROR");
             alert.setHeaderText("Part Not Found");
-            alert.setContentText("The part you entered does not match any current part!");
+            alert.setContentText("The part you entered was not found.");
             alert.showAndWait();
         } else {
             partIndex = Inventory.lookupPart(partSearch);
@@ -112,38 +112,44 @@ public class MainScreenController implements Initializable {
     @FXML
     void MainScrModifyPart(ActionEvent actionEvent) throws IOException {
         Part modifyPart = MainParts.getSelectionModel().getSelectedItem();
-        modifyPartIndex = getPartInventory().indexOf(modifyPart);
-        Parent modPartParent = FXMLLoader.load(getClass().getResource("ModifyPart.fxml"));
-        Scene modPartScene = new Scene (modPartParent, 550, 500);
-        Stage modPartWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        modPartWindow.setScene(modPartScene);
-        modPartWindow.show();
+        if (modifyPart == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Part Modification Error");
+            alert.setContentText("You have not selected a part to modify.");
+            alert.showAndWait();
+        } else {
+            modifyPartIndex = getPartInventory().indexOf(modifyPart);
+            Parent modPartParent = FXMLLoader.load(getClass().getResource("ModifyPart.fxml"));
+            Scene modPartScene = new Scene(modPartParent, 550, 500);
+            Stage modPartWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            modPartWindow.setScene(modPartScene);
+            modPartWindow.show();
+        }
     }
 
     // Delete Part
     @FXML
     void MainScrDelPart(ActionEvent actionEvent) {
         Part part = MainParts.getSelectionModel().getSelectedItem();
-        if (validatePartRemoval(part)) {
+//        if (validatePartRemoval(part)) {
+        if (part == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Part Deletion Error!");
-            alert.setHeaderText("Part cannot be deleted!");
-            alert.setContentText("The part you are trying to delete is currently being used in one or more products.");
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Part Deletion Error");
+            alert.setContentText("You have not selected a part to delete.");
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.initModality(Modality.NONE);
-            alert.setTitle("Part Deletion!");
+            alert.setTitle("PART DELETION");
             alert.setHeaderText("Deletion Confirmation");
             alert.setContentText("Please confirm that you would like to delete " + part.getPartName() + "?");
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK) {
                 removePart(part);
-                updatePartsTableView();
-                System.out.println("Part " + part.getPartName() + " has been deleted.");
-            } else {
-                System.out.println("Part " + part.getPartName() + " was not deleted.");
+                updatePartsTV();
             }
         }
     }
@@ -157,9 +163,9 @@ public class MainScreenController implements Initializable {
         int prodIndex = -1;
         if (Inventory.lookupProduct(productSearch) == -1) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Search Problem");
-            alert.setHeaderText("Part Not Found");
-            alert.setContentText("The part you entered does not match any current product!");
+            alert.setTitle("SEARCH ERROR");
+            alert.setHeaderText("Product Not Found");
+            alert.setContentText("The product you entered was not found.");
             alert.showAndWait();
         } else {
             prodIndex = Inventory.lookupProduct(productSearch);
@@ -184,6 +190,13 @@ public class MainScreenController implements Initializable {
     @FXML
     void MainScrProductMod(ActionEvent actionEvent) throws IOException {
         Product modifyProduct = MainProducts.getSelectionModel().getSelectedItem();
+        if (modifyProduct == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Product Modification Error");
+            alert.setContentText("You have not selected a product to modify.");
+            alert.showAndWait();
+        }
         modifyProductIndex = getProductInventory().indexOf(modifyProduct);
         Parent modProdParent = FXMLLoader.load(getClass().getResource("ModifyProduct.fxml"));
         Scene modProdScene = new Scene(modProdParent, 1160, 550);
@@ -196,19 +209,24 @@ public class MainScreenController implements Initializable {
     @FXML
     void MainScrProductDel(ActionEvent actionEvent) {
         Product product = MainProducts.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initModality(Modality.NONE);
-        alert.setTitle("Product Deletion!");
-        alert.setHeaderText("Deletion Confirmation");
-        alert.setContentText("Please confirm that you would like to delete " + product.getProductName() + "?");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() == ButtonType.OK) {
-            removeProduct(product);
-            updateProductsTableView();
-            System.out.println("Part " + product.getProductName() + " has been deleted.");
+        if (product == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Product Deletion Error");
+            alert.setContentText("You have not selected a product to delete.");
+            alert.showAndWait();
         } else {
-            System.out.println("Part " + product.getProductName() + " was not deleted.");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("PRODUCT DELETION");
+            alert.setHeaderText("Deletion Confirmation");
+            alert.setContentText("Please confirm that you would like to delete " + product.getProductName() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+                removeProduct(product);
+                updateProductsTV();
+            }
         }
     }
 
@@ -233,6 +251,15 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        mainPartIdColumn.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
+        mainPartNameColumn.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
+        mainPartInvColumn.setCellValueFactory(cellData -> cellData.getValue().partInStockProperty().asObject());
+        mainPartPriceColumn.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
+        mainProdIdColumn.setCellValueFactory(cellData -> cellData.getValue().productIDProperty().asObject());
+        mainProdNameColumn.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
+        mainProdInvColumn.setCellValueFactory(cellData -> cellData.getValue().productInStockProperty().asObject());
+        mainProdPriceColumn.setCellValueFactory(cellData -> cellData.getValue().productPriceProperty().asObject());
+        updatePartsTV();
+        updateProductsTV();
     }
 }

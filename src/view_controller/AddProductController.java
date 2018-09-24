@@ -75,8 +75,15 @@ public class AddProductController implements Initializable {
     @FXML
     void addProdAdd(ActionEvent actionEvent) {
         Part part = addProdAddTV.getSelectionModel().getSelectedItem();
-        currentParts.add(part);
-        updateDelProdAddTV();
+        if (part == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Error");
+            alert.setContentText("No part was selected.");
+        } else {
+            currentParts.add(part);
+            updateDelProdAddTV();
+        }
     }
 
     public void updateDelProdAddTV() {
@@ -86,7 +93,24 @@ public class AddProductController implements Initializable {
     // DELETE BUTTON
     @FXML
     void addProdDel(ActionEvent actionEvent) {
-        ModifyProductController.confirmDelAlert(delProdAddTV, currentParts);
+        Part part = delProdAddTV.getSelectionModel().getSelectedItem();
+        if (part == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Error");
+            alert.setContentText("No part was selected.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Confirm Delete");
+            alert.setContentText("Are you sure you want to delete " + part.getPartName() + "?");
+            Optional<ButtonType> confirm = alert.showAndWait();
+            if (confirm.get() == ButtonType.OK) {
+                currentParts.remove(part);
+            }
+        }
     }
 
     // SEARCH BUTTON
@@ -173,13 +197,25 @@ public class AddProductController implements Initializable {
         productID = Inventory.getProductIdCount();
         addProdIdNumField.setText("Auto-gen: " + productID);
 
+        updateAddPartTV();
+        updateDeletePartTV();
+
         addProdPartIDCol.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
         addProdPartNameCol.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
         addProdInvCol.setCellValueFactory(cellData -> cellData.getValue().partInStockProperty().asObject());
         addProdPriceCol.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
+
         delProdPartIDCol.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
         delProdPartNameCol.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
         delProdInvCol.setCellValueFactory(cellData -> cellData.getValue().partInStockProperty().asObject());
         delProdPriceCol.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
+    }
+
+    public void updateAddPartTV() {
+        addProdAddTV.setItems(getPartInventory());
+    }
+
+    public void updateDeletePartTV() {
+        delProdAddTV.setItems(currentParts);
     }
 }

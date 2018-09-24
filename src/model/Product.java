@@ -13,6 +13,7 @@ public class Product {
     private final IntegerProperty min;
     private final IntegerProperty max;
     private final IntegerProperty productID;
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
     // CONSTRUCTORS
     public Product() {
@@ -22,6 +23,7 @@ public class Product {
         min = new SimpleIntegerProperty();
         max = new SimpleIntegerProperty();
         productID = new SimpleIntegerProperty();
+        associatedParts = FXCollections.observableArrayList();
     }
 
     // GETTERS
@@ -78,6 +80,10 @@ public class Product {
         return productID;
     }
 
+    public ObservableList<Part> getAssociatedParts() {
+        return associatedParts;
+    }
+
     // SETTERS
     public static void setProductParts(ObservableList<Part> parts) {
         Product.parts = parts;
@@ -111,6 +117,11 @@ public class Product {
         this.parts = parts;
     }
 
+
+    public void setAssociatedParts(ObservableList<Part> associatedParts) {
+        this.associatedParts = associatedParts;
+    }
+
     // VALIDATION
     public static String isValid(
             String name,
@@ -136,5 +147,27 @@ public class Product {
             errMessage = "The Min value cannot be greater than the Max value.";
         }
         return  errMessage;
+    }
+
+    // SEARCH PART
+    public Part lookupAssociatedPart(int partID) {
+        for(Part part: associatedParts) {
+            if(part.getPartID() == partID) {
+                return part;
+            }
+        }
+
+        return null;
+    }
+
+    // REMOVE PART
+    public boolean removeAssociatedPart(Part part) {
+        return associatedParts.remove(part);
+    }
+
+
+    // ADD PART
+    public void addAssociatedPart(Part part) {
+        associatedParts.add(part);
     }
 }
