@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 public class Product {
 
     private static ObservableList<Part> parts = FXCollections.observableArrayList();
-    private static ObservableList<Part> partInventory = FXCollections.observableArrayList();
+    private static ObservableList<Part> partInv = FXCollections.observableArrayList();
     private final StringProperty name;
     private final DoubleProperty price;
     private final IntegerProperty inStock;
@@ -85,8 +85,8 @@ public class Product {
         return associatedParts;
     }
 
-    public static ObservableList<Part> getPartInventory() {
-        return partInventory;
+    public ObservableList<Part> getPartInventory() {
+        return partInv;
     }
 
     // SETTERS
@@ -159,16 +159,16 @@ public class Product {
         boolean foundPart = false;
         int index = 0;
         if (isInteger(searchPart)) {
-            for (int i = 0; i < partInventory.size(); i++) {
-                if (Integer.parseInt(searchPart) == partInventory.get(i).getPartID()) {
+            for (int i = 0; i < partInv.size(); i++) {
+                if (Integer.parseInt(searchPart) == partInv.get(i).getPartID()) {
                     index = i;
                     foundPart = true;
                 }
             }
         } else {
-            for (int i = 0; i < partInventory.size(); i++) {
+            for (int i = 0; i < partInv.size(); i++) {
                 searchPart = searchPart.toLowerCase();
-                if (searchPart.equals(partInventory.get(i).getPartName().toLowerCase())) {
+                if (searchPart.equals(partInv.get(i).getPartName().toLowerCase())) {
                     index = i;
                     foundPart = true;
                 }

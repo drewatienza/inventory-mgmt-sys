@@ -10,7 +10,7 @@
             xmlns:fx="http://javafx.com/fxml">
     <children>
         <!--MAIN SCREEN TITLE-->
-        <Label fx:id="MainScreenLabel" layoutX="30.0" layoutY="20.0" text="Inventory Management System">
+        <Label fx:id="mainScreenLabel" layoutX="30.0" layoutY="20.0" text="Inventory Management System">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
@@ -25,7 +25,7 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
-                <TableView fx:id="MainParts" layoutX="15.0" layoutY="50.0" prefHeight="250.0"
+                <TableView fx:id="mainParts" layoutX="15.0" layoutY="50.0" prefHeight="250.0"
                            prefWidth="520.0">
                     <columns>
                         <TableColumn fx:id="mainPartIdColumn" prefWidth="130.0" text="Part ID" />
@@ -34,15 +34,15 @@
                         <TableColumn fx:id="mainPartPriceColumn" prefWidth="130.0" text="Price/Cost per Unit" />
                     </columns>
                 </TableView>
-                <Button fx:id="PartSearchBtn" layoutX="250.0" layoutY="15.0" mnemonicParsing="false" text="Search"
-                        onAction="#MainScrPartSearch" prefHeight="25.0" prefWidth="100.0" />
-                <TextField fx:id="PartSearchField" layoutX="363.0" layoutY="15.0" />
-                <Button fx:id="MainScrAddPartBtn" layoutX="180.0" layoutY="320.0" mnemonicParsing="false" text="Add"
-                        onAction="#MainScrAddPart" prefHeight="25.0" prefWidth="100.0" />
+                <Button fx:id="partSearchBtn" layoutX="250.0" layoutY="15.0" mnemonicParsing="false" text="Search"
+                        onAction="#mainScrPartSearch" prefHeight="25.0" prefWidth="100.0" />
+                <TextField fx:id="partSearchField" layoutX="363.0" layoutY="15.0" />
+                <Button fx:id="mainScrAddPartBtn" layoutX="180.0" layoutY="320.0" mnemonicParsing="false" text="Add"
+                        onAction="#mainScrAddPart" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" text="Modify"
-                        onAction="#MainScrModifyPart" prefHeight="25.0" prefWidth="100.0" />
+                        onAction="#mainScrModifyPart" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="400.0" layoutY="320.0" mnemonicParsing="false" text="Delete"
-                        onAction="#MainScrDelPart" prefHeight="25.0" prefWidth="100.0" />
+                        onAction="#mainScrDelPart" prefHeight="25.0" prefWidth="100.0" />
             </children>
         </Pane>
 
@@ -55,7 +55,7 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
-                <TableView fx:id="MainProducts" layoutX="15.0" layoutY="50.0" prefHeight="250.0"
+                <TableView fx:id="mainProds" layoutX="15.0" layoutY="50.0" prefHeight="250.0"
                            prefWidth="520.0">
                     <columns>
                         <TableColumn fx:id="mainProdIdColumn" prefWidth="130.0" text="Part ID" />
@@ -64,20 +64,20 @@
                         <TableColumn fx:id="mainProdPriceColumn" prefWidth="130.0" text="Price per Unit" />
                     </columns>
                 </TableView>
-                <Button fx:id="ProductSearchBtn" layoutX="250.0" layoutY="15.0" mnemonicParsing="false" text="Search"
-                        onAction="#MainScrProductSearch" prefHeight="25.0" prefWidth="100.0" />
-                <TextField fx:id="ProductSearchField" layoutX="363.0" layoutY="15.0" />
-                <Button fx:id="MainScrAddProdBtn" layoutX="180.0" layoutY="320.0" mnemonicParsing="false" text="Add"
-                        onAction="#MainScrProductAdd" prefHeight="25.0" prefWidth="100.0" />
+                <Button fx:id="prodSearchBtn" layoutX="250.0" layoutY="15.0" mnemonicParsing="false" text="Search"
+                        onAction="#mainScrProdSearch" prefHeight="25.0" prefWidth="100.0" />
+                <TextField fx:id="prodSearchField" layoutX="363.0" layoutY="15.0" />
+                <Button fx:id="mainScrAddProdBtn" layoutX="180.0" layoutY="320.0" mnemonicParsing="false" text="Add"
+                        onAction="#mainScrProdAdd" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" text="Modify"
-                        onAction="#MainScrProductMod" prefHeight="25.0" prefWidth="100.0" />
+                        onAction="#mainScrProdMod" prefHeight="25.0" prefWidth="100.0" />
                 <Button layoutX="400.0" layoutY="320.0" mnemonicParsing="false" text="Delete"
-                        onAction="#MainScrProductDel" prefHeight="25.0" prefWidth="100.0" />
+                        onAction="#mainScrProdDel" prefHeight="25.0" prefWidth="100.0" />
             </children>
         </Pane>
 
         <!--EXIT BUTTON-->
         <Button fx:id="MainExitBtn" layoutX="980.0" layoutY="500.0" mnemonicParsing="false" prefHeight="30.0"
-                prefWidth="100.0" text="Exit" onAction="#ExitBtn" />
+                prefWidth="100.0" text="Exit" onAction="#exitBtn" />
     </children>
 </AnchorPane>

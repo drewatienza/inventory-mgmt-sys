@@ -19,9 +19,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static model.Inventory.getProductInventory;
+import static model.Inventory.getProdInv;
 import static view_controller.MainScreenController.partToModifyIndex;
-import static model.Inventory.getPartInventory;
+import static model.Inventory.getPartInv;
 
 public class ModifyPartController implements Initializable {
 
@@ -155,8 +155,8 @@ public class ModifyPartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Part part = getPartInventory().get(partIndex);
-        partID = getPartInventory().get(partIndex).getPartID();
+        Part part = getPartInv().get(partIndex);
+        partID = getPartInv().get(partIndex).getPartID();
         modPartIdField.setText("Auto-Gen: " + partID);
         modPartNameField.setText(part.getPartName());
         modPartInvField.setText(Integer.toString(part.getPartInStock()));

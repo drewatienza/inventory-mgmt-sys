@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 import model.Part;
 import model.Inventory;
 import model.Product;
-import static model.Inventory.getPartInventory;
-import static model.Inventory.getProductInventory;
-import static view_controller.MainScreenController.productToModifyIndex;
+import static model.Inventory.getPartInv;
+import static model.Inventory.getProdInv;
+import static view_controller.MainScreenController.prodToModifyIndex;
 
 
 
@@ -32,7 +32,7 @@ public class ModifyProductController implements Initializable {
     private ObservableList<Part> tempPartList = FXCollections.observableArrayList();
     private String isValidException = new String();
     private int productID;
-    private int productIndex = productToModifyIndex();
+    private int prodIndex = prodToModifyIndex();
 
     @FXML
     private TextField modProdIdNumField;
@@ -73,7 +73,6 @@ public class ModifyProductController implements Initializable {
     @FXML
     void modProdSearch(ActionEvent actionEvent) {
         String searchPart = modProdSearchField.getText();
-        int partIndex = -1;
         prodSearchHelper(searchPart, tempPartList, addProdModTV);
     }
 
@@ -87,7 +86,7 @@ public class ModifyProductController implements Initializable {
             alert.showAndWait();
         } else {
             partIndex = Inventory.searchPart(searchPart);
-            Part tempPart = getPartInventory().get(partIndex);
+            Part tempPart = getPartInv().get(partIndex);
             tempPartList.add(tempPart);
             addProdModTV.setItems(tempPartList);
         }
@@ -193,10 +192,10 @@ public class ModifyProductController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateDelProdModTV();
-        productID = Inventory.getProductIdCount();
         modProdIdNumField.setText("Auto-gen: " + productID);
 
-        Product product = getProductInventory().get(productIndex);
+        Product product = getProdInv().get(prodIndex);
+        productID = getProdInv().get(prodIndex).getProductID();
         modProdNameField.setText(product.getProductName());
 
         updateAddPartTV();
@@ -214,7 +213,7 @@ public class ModifyProductController implements Initializable {
     }
 
     public void updateAddPartTV() {
-        addProdModTV.setItems(getPartInventory());
+        addProdModTV.setItems(getPartInv());
     }
 
     public void updateDeletePartTV() {

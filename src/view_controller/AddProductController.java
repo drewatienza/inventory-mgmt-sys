@@ -13,14 +13,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Inventory;
-import static model.Inventory.getPartInventory;
+import static model.Inventory.getPartInv;
 import model.Product;
 import model.Part;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import model.Part;
 
 import java.awt.*;
 import java.io.IOException;
@@ -75,7 +74,6 @@ public class AddProductController implements Initializable {
     @FXML
     void addProdSearch(ActionEvent actionEvent) {
         String searchPart = addProdSearchField.getText();
-        int partIndex = -1;
         ModifyProductController.prodSearchHelper(searchPart, tempPartList, addProdAddTV);
     }
 
@@ -216,7 +214,7 @@ public class AddProductController implements Initializable {
     }
 
     public void updateAddPartTV() {
-        addProdAddTV.setItems(getPartInventory());
+        addProdAddTV.setItems(getPartInv());
     }
 
     public void updateDeletePartTV() {

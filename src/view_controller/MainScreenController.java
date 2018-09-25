@@ -61,19 +61,19 @@ public class MainScreenController implements Initializable {
     @FXML
     private TextField prodSearchField;
 
-    private static int modifyProductIndex;
+    private static int modProdIndex;
 
-    public static int productToModifyIndex() {
-        return modifyProductIndex;
+    public static int prodToModifyIndex() {
+        return modProdIndex;
     }
 
     // Parts Update Table View
     public void updatePartsTV() {
-        mainParts.setItems(getPartInventory());
+        mainParts.setItems(getPartInv());
     }
     // Update Products Table View
     public void updateProductsTV() {
-        mainProds.setItems(getProductInventory());
+        mainProds.setItems(getProdInv());
     }
 
 
@@ -91,7 +91,7 @@ public class MainScreenController implements Initializable {
             alert.showAndWait();
         } else {
             partIndex = Inventory.searchPart(partSearch);
-            Part tempPart = Inventory.getPartInventory().get(partIndex);
+            Part tempPart = Inventory.getPartInv().get(partIndex);
             ObservableList<Part> tempPartList = FXCollections.observableArrayList();
             tempPartList.add(tempPart);
             mainParts.setItems(tempPartList);
@@ -119,7 +119,7 @@ public class MainScreenController implements Initializable {
             alert.setContentText("You have not selected a part to modify.");
             alert.showAndWait();
         } else {
-            modifyPartIndex = getPartInventory().indexOf(modifyPart);
+            modifyPartIndex = getPartInv().indexOf(modifyPart);
             Parent modPartParent = FXMLLoader.load(getClass().getResource("ModifyPart.fxml"));
             Scene modPartScene = new Scene(modPartParent, 550, 500);
             Stage modPartWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -170,7 +170,7 @@ public class MainScreenController implements Initializable {
             alert.showAndWait();
         } else {
             prodIndex = Inventory.searchProd(prodSearch);
-            Product tempProduct = Inventory.getProductInventory().get(prodIndex);
+            Product tempProduct = Inventory.getProdInv().get(prodIndex);
             ObservableList<Product> tempProductList = FXCollections.observableArrayList();
             tempProductList.add(tempProduct);
             mainProds.setItems(tempProductList);
@@ -190,15 +190,15 @@ public class MainScreenController implements Initializable {
     // Modify Product
     @FXML
     void mainScrProdMod(ActionEvent actionEvent) throws IOException {
-        Product modifyProduct = mainProds.getSelectionModel().getSelectedItem();
-        if (modifyProduct == null) {
+        Product modProd = mainProds.getSelectionModel().getSelectedItem();
+        if (modProd == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Product Modification Error");
             alert.setContentText("You have not selected a product to modify.");
             alert.showAndWait();
         }
-        modifyProductIndex = getProductInventory().indexOf(modifyProduct);
+        modProdIndex = getProdInv().indexOf(modProd);
         Parent modProdParent = FXMLLoader.load(getClass().getResource("ModifyProduct.fxml"));
         Scene modProdScene = new Scene(modProdParent, 1160, 550);
         Stage modProdWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

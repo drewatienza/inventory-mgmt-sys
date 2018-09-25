@@ -5,19 +5,19 @@ import javafx.collections.ObservableList;
 
 public class Inventory {
 
-    private static ObservableList<Product> productInventory = FXCollections.observableArrayList();
-    private static ObservableList<Part> partInventory = FXCollections.observableArrayList();
+    private static ObservableList<Product> prodInv = FXCollections.observableArrayList();
+    private static ObservableList<Part> partInv = FXCollections.observableArrayList();
 
     private static int partIdCount = 0;
     private static int productIdCount = 0;
 
     // GETTERS
-    public static ObservableList<Product> getProductInventory() {
-        return productInventory;
+    public static ObservableList<Product> getProdInv() {
+        return prodInv;
     }
 
-    public static ObservableList<Part> getPartInventory() {
-        return partInventory;
+    public static ObservableList<Part> getPartInv() {
+        return partInv;
     }
 
     public static int getPartIdCount() {
@@ -32,33 +32,33 @@ public class Inventory {
 
     // PRODUCT
     public static void addProduct(Product product) {
-        productInventory.add(product);
+        prodInv.add(product);
     }
 
     public static void removeProduct(Product product) {
-        productInventory.remove(product);
+        prodInv.remove(product);
     }
 
     public static int searchProd(String sProd) {
-        boolean foundProduct = false;
+        boolean foundProd = false;
         int index = 0;
         if (isInteger(sProd)) {
-            for (int i = 0; i < productInventory.size(); i++) {
-                if (Integer.parseInt(sProd) == productInventory.get(i).getProductID()) {
+            for (int i = 0; i < prodInv.size(); i++) {
+                if (Integer.parseInt(sProd) == prodInv.get(i).getProductID()) {
                     index = 1;
-                    foundProduct = true;
+                    foundProd = true;
                 }
             }
         } else {
-            for (int i = 0; i < productInventory.size(); i++) {
-                if (sProd.equals(productInventory.get(i).getProductName())) {
+            for (int i = 0; i < prodInv.size(); i++) {
+                if (sProd.equals(prodInv.get(i).getProductName())) {
                     index = i;
-                    foundProduct = true;
+                    foundProd = true;
                 }
             }
         }
 
-        if (foundProduct) {
+        if (foundProd) {
             return index;
         } else {
             System.out.println("Product was not found.");
@@ -66,33 +66,46 @@ public class Inventory {
         }
     }
 
+//    public static boolean prodDelete(Product product) {
+//        boolean foundProd = false;
+//        int productID = product.getProductID();
+//        for (int i = 0; i < productInventory.size(); i++) {
+//            if (productInventory.get(i).getProductID() == productID) {
+//                if (!productInventory.get(i).getProductParts().isEmpty()) {
+//                    foundProd = true;
+//                }
+//            }
+//        }
+//        return foundProd;
+//    }
+
     public static void updateProd (int index, Product product) {
-        productInventory.set(index, product);
+        prodInv.set(index, product);
     }
 
     // PART
     public static void addPart(Part part) {
-        partInventory.add(part);
+        partInv.add(part);
     }
 
     public static void removePart(Part part) {
-        partInventory.remove(part);
+        partInv.remove(part);
     }
 
     public static int searchPart(String sPart) {
         boolean foundPart = false;
         int index = 0;
         if (isInteger(sPart)) {
-            for (int i = 0; i < partInventory.size(); i++) {
-                if (Integer.parseInt(sPart) == partInventory.get(i).getPartID()) {
+            for (int i = 0; i < partInv.size(); i++) {
+                if (Integer.parseInt(sPart) == partInv.get(i).getPartID()) {
                     index = i;
                     foundPart = true;
                 }
             }
         } else {
-            for (int i = 0; i < partInventory.size(); i++) {
+            for (int i = 0; i < partInv.size(); i++) {
                 sPart = sPart.toLowerCase();
-                if (sPart.equals(partInventory.get(i).getPartName().toLowerCase())) {
+                if (sPart.equals(partInv.get(i).getPartName().toLowerCase())) {
                     index = i;
                     foundPart = true;
                 }
