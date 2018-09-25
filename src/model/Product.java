@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 public class Product {
 
     private static ObservableList<Part> parts = FXCollections.observableArrayList();
+    private static ObservableList<Part> partInventory = FXCollections.observableArrayList();
     private final StringProperty name;
     private final DoubleProperty price;
     private final IntegerProperty inStock;
@@ -84,6 +85,10 @@ public class Product {
         return associatedParts;
     }
 
+    public static ObservableList<Part> getPartInventory() {
+        return partInventory;
+    }
+
     // SETTERS
     public static void setProductParts(ObservableList<Part> parts) {
         Product.parts = parts;
@@ -150,14 +155,43 @@ public class Product {
     }
 
     // SEARCH PART
-    public Part lookupAssociatedPart(int partID) {
-        for(Part part: associatedParts) {
-            if(part.getPartID() == partID) {
-                return part;
+    public static int lookupAssociatedPart(String searchPart) {
+        boolean foundPart = false;
+        int index = 0;
+        if (isInteger(searchPart)) {
+            for (int i = 0; i < partInventory.size(); i++) {
+                if (Integer.parseInt(searchPart) == partInventory.get(i).getPartID()) {
+                    index = i;
+                    foundPart = true;
+                }
+            }
+        } else {
+            for (int i = 0; i < partInventory.size(); i++) {
+                searchPart = searchPart.toLowerCase();
+                if (searchPart.equals(partInventory.get(i).getPartName().toLowerCase())) {
+                    index = i;
+                    foundPart = true;
+                }
             }
         }
 
-        return null;
+        if (foundPart) {
+            return index;
+        } else {
+            System.out.println("Part was not found.");
+            return -1;
+        }
+    }
+
+
+    // HELPER METHOD
+    public static boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 
     // REMOVE PART

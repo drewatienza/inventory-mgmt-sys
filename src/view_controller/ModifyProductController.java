@@ -79,14 +79,14 @@ public class ModifyProductController implements Initializable {
 
     static void prodSearchHelper(String searchPart, ObservableList<Part> tempPartList, TableView<Part> addProdModTV) {
         int partIndex;
-        if(Inventory.lookupPart(searchPart) == -1) {
+        if(Inventory.searchPart(searchPart) == -1) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Search Error");
             alert.setContentText("The part you entered does not match any current parts.");
             alert.showAndWait();
         } else {
-            partIndex = Inventory.lookupPart(searchPart);
+            partIndex = Inventory.searchPart(searchPart);
             Part tempPart = getPartInventory().get(partIndex);
             tempPartList.add(tempPart);
             addProdModTV.setItems(tempPartList);
@@ -100,7 +100,7 @@ public class ModifyProductController implements Initializable {
         if (part == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
-            alert.setHeaderText("Error");
+            alert.setHeaderText("Part Addition Error");
             alert.setContentText("No part was selected.");
         } else {
             currentParts.add(part);
@@ -116,23 +116,7 @@ public class ModifyProductController implements Initializable {
     @FXML
     void modProdDel(ActionEvent actionEvent) {
         Part part = delProdModTV.getSelectionModel().getSelectedItem();
-        if (part == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setHeaderText("Error");
-            alert.setContentText("There is nothing selected to delete.");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.initModality(Modality.NONE);
-            alert.setTitle("Delete");
-            alert.setHeaderText("Confirm Delete");
-            alert.setContentText("Are you sure you want to delete " + part.getPartName() + "?");
-            Optional<ButtonType> confirm = alert.showAndWait();
-            if (confirm.get() == ButtonType.OK) {
-                currentParts.remove(part);
-            }
-        }
+        AddProductController.prodDelAlert(part, currentParts);
     }
 
     // CANCEL BUTTON
@@ -141,7 +125,7 @@ public class ModifyProductController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initModality(Modality.NONE);
         alert.setTitle("CANCEL");
-        alert.setHeaderText("Confirm Cancel");
+        alert.setHeaderText("Confirm Cancellation");
         alert.setContentText("Are you sure you want to cancel adding a new product?");
         Optional<ButtonType> confirm = alert.showAndWait();
         if (confirm.get() == ButtonType.OK) {
@@ -175,7 +159,7 @@ public class ModifyProductController implements Initializable {
             if (isValidException.length() > 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR");
-                alert.setHeaderText("Error");
+                alert.setHeaderText("Validation Error");
                 alert.setContentText(isValidException);
                 alert.showAndWait();
                 isValidException = "";
@@ -187,7 +171,7 @@ public class ModifyProductController implements Initializable {
                 newProd.setProductPrice(Double.parseDouble(prodPrice));
                 newProd.setProductMax(Integer.parseInt(prodMax));
                 newProd.setProductMin(Integer.parseInt(prodMin));
-                newProd.setProductParts(currentParts);
+                newProd.setProdParts(currentParts);
                 Inventory.addProduct(newProd);
 
                 Parent save = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
@@ -200,7 +184,7 @@ public class ModifyProductController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Error");
-            alert.setContentText("Form cannot contain black fields.");
+            alert.setContentText("Form cannot contain blank fields.");
             alert.showAndWait();
         }
     }

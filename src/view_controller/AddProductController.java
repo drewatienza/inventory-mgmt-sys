@@ -71,6 +71,14 @@ public class AddProductController implements Initializable {
     @FXML
     private TextField addProdSearchField;
 
+    // SEARCH BUTTON
+    @FXML
+    void addProdSearch(ActionEvent actionEvent) {
+        String searchPart = addProdSearchField.getText();
+        int partIndex = -1;
+        ModifyProductController.prodSearchHelper(searchPart, tempPartList, addProdAddTV);
+    }
+
     // ADD BUTTON
     @FXML
     void addProdAdd(ActionEvent actionEvent) {
@@ -78,7 +86,7 @@ public class AddProductController implements Initializable {
         if (part == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
-            alert.setHeaderText("Error");
+            alert.setHeaderText("Part Addition Error");
             alert.setContentText("No part was selected.");
         } else {
             currentParts.add(part);
@@ -94,17 +102,21 @@ public class AddProductController implements Initializable {
     @FXML
     void addProdDel(ActionEvent actionEvent) {
         Part part = delProdAddTV.getSelectionModel().getSelectedItem();
+        prodDelAlert(part, currentParts);
+    }
+
+    static void prodDelAlert(Part part, ObservableList<Part> currentParts) {
         if (part == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
-            alert.setHeaderText("Error");
+            alert.setHeaderText("Part Deletion Error");
             alert.setContentText("No part was selected.");
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.initModality(Modality.NONE);
-            alert.setTitle("Delete");
-            alert.setHeaderText("Confirm Delete");
+            alert.setTitle("DELETE");
+            alert.setHeaderText("Confirm Deletion");
             alert.setContentText("Are you sure you want to delete " + part.getPartName() + "?");
             Optional<ButtonType> confirm = alert.showAndWait();
             if (confirm.get() == ButtonType.OK) {
@@ -113,21 +125,13 @@ public class AddProductController implements Initializable {
         }
     }
 
-    // SEARCH BUTTON
-    @FXML
-    void addProdSearch(ActionEvent actionEvent) {
-        String searchPart = addProdSearchField.getText();
-        int partIndex = -1;
-        ModifyProductController.prodSearchHelper(searchPart, tempPartList, addProdAddTV);
-    }
-
     // CANCEL BUTTON
     @FXML
     void addProdCancel(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initModality(Modality.NONE);
         alert.setTitle("CANCEL");
-        alert.setHeaderText("Confirm Cancel");
+        alert.setHeaderText("Confirm Cancellation");
         alert.setContentText("Are you sure you want to cancel adding a new product?");
         Optional<ButtonType> confirm = alert.showAndWait();
         if (confirm.get() == ButtonType.OK) {
@@ -139,7 +143,7 @@ public class AddProductController implements Initializable {
         }
     }
 
-    // SAVE
+    // SAVE BUTTON
     @FXML
     void addProdSave(ActionEvent actionEvent) throws IOException {
         String prodName = addProdNameField.getText();
@@ -157,11 +161,11 @@ public class AddProductController implements Initializable {
                     Integer.parseInt(prodMin),
                     currentParts,
                     isValidException
-                    );
+            );
             if (isValidException.length() > 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR");
-                alert.setHeaderText("Error");
+                alert.setHeaderText("Validation Error");
                 alert.setContentText(isValidException);
                 alert.showAndWait();
                 isValidException = "";
@@ -186,7 +190,7 @@ public class AddProductController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Error");
-            alert.setContentText("Form cannot contain black fields.");
+            alert.setContentText("Form cannot contain blank fields.");
             alert.showAndWait();
         }
     }

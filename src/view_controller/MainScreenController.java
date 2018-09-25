@@ -29,7 +29,7 @@ public class MainScreenController implements Initializable {
 
     // PARTS TABLEVIEW
     @FXML
-    private TableView<Part>  MainParts;
+    private TableView<Part>  mainParts;
     @FXML
     private TableColumn<Part, Integer> mainPartIdColumn;
     @FXML
@@ -39,7 +39,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Part, Double> mainPartPriceColumn;
     @FXML
-    private TextField PartSearchField;
+    private TextField partSearchField;
 
     private static int modifyPartIndex;
 
@@ -49,7 +49,7 @@ public class MainScreenController implements Initializable {
 
     // PRODUCT TABLEVIEW
     @FXML
-    private TableView<Product>  MainProducts;
+    private TableView<Product>  mainProds;
     @FXML
     private TableColumn<Product, Integer> mainProdIdColumn;
     @FXML
@@ -59,7 +59,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Product, Double> mainProdPriceColumn;
     @FXML
-    private TextField ProductSearchField;
+    private TextField prodSearchField;
 
     private static int modifyProductIndex;
 
@@ -69,38 +69,38 @@ public class MainScreenController implements Initializable {
 
     // Parts Update Table View
     public void updatePartsTV() {
-        MainParts.setItems(getPartInventory());
+        mainParts.setItems(getPartInventory());
     }
     // Update Products Table View
     public void updateProductsTV() {
-        MainProducts.setItems(getProductInventory());
+        mainProds.setItems(getProductInventory());
     }
 
 
     // PARTS SECTION
     // Search Part
     @FXML
-    void MainScrPartSearch(ActionEvent actionEvent) {
-        String partSearch = PartSearchField.getText();
+    void mainScrPartSearch(ActionEvent actionEvent) {
+        String partSearch = partSearchField.getText();
         int partIndex = -1;
-        if (Inventory.lookupPart(partSearch) == -1) {
+        if (Inventory.searchPart(partSearch) == -1) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SEARCH ERROR");
             alert.setHeaderText("Part Not Found");
             alert.setContentText("The part you entered was not found.");
             alert.showAndWait();
         } else {
-            partIndex = Inventory.lookupPart(partSearch);
+            partIndex = Inventory.searchPart(partSearch);
             Part tempPart = Inventory.getPartInventory().get(partIndex);
             ObservableList<Part> tempPartList = FXCollections.observableArrayList();
             tempPartList.add(tempPart);
-            MainParts.setItems(tempPartList);
+            mainParts.setItems(tempPartList);
         }
     }
 
     // Add Part
     @FXML
-    void MainScrAddPart(ActionEvent actionEvent) throws IOException {
+    void mainScrAddPart(ActionEvent actionEvent) throws IOException {
         Parent addParts = FXMLLoader.load(getClass().getResource("AddPart.fxml"));
         Scene addPartScene = new Scene (addParts, 550, 500);
         Stage addPartWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -110,8 +110,8 @@ public class MainScreenController implements Initializable {
 
     // Modify Part
     @FXML
-    void MainScrModifyPart(ActionEvent actionEvent) throws IOException {
-        Part modifyPart = MainParts.getSelectionModel().getSelectedItem();
+    void mainScrModifyPart(ActionEvent actionEvent) throws IOException {
+        Part modifyPart = mainParts.getSelectionModel().getSelectedItem();
         if (modifyPart == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -130,9 +130,10 @@ public class MainScreenController implements Initializable {
 
     // Delete Part
     @FXML
-    void MainScrDelPart(ActionEvent actionEvent) {
-        Part part = MainParts.getSelectionModel().getSelectedItem();
-//        if (validatePartRemoval(part)) {
+    void mainScrDelPart(ActionEvent actionEvent) {
+        Part part = mainParts.getSelectionModel().getSelectedItem();
+
+//        MIGHT DELETE
         if (part == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -158,27 +159,27 @@ public class MainScreenController implements Initializable {
     // PRODUCTS SECTION
     // Search Product
     @FXML
-    void MainScrProductSearch(ActionEvent actionEvent) {
-        String productSearch = ProductSearchField.getText();
+    void mainScrProdSearch(ActionEvent actionEvent) {
+        String prodSearch = prodSearchField.getText();
         int prodIndex = -1;
-        if (Inventory.lookupProduct(productSearch) == -1) {
+        if (Inventory.searchProd(prodSearch) == -1) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SEARCH ERROR");
             alert.setHeaderText("Product Not Found");
             alert.setContentText("The product you entered was not found.");
             alert.showAndWait();
         } else {
-            prodIndex = Inventory.lookupProduct(productSearch);
+            prodIndex = Inventory.searchProd(prodSearch);
             Product tempProduct = Inventory.getProductInventory().get(prodIndex);
             ObservableList<Product> tempProductList = FXCollections.observableArrayList();
             tempProductList.add(tempProduct);
-            MainProducts.setItems(tempProductList);
+            mainProds.setItems(tempProductList);
         }
     }
 
     // Add Product
     @FXML
-    void MainScrProductAdd(ActionEvent actionEvent) throws IOException {
+    void mainScrProdAdd(ActionEvent actionEvent) throws IOException {
         Parent addProducts = FXMLLoader.load(getClass().getResource("AddProduct.fxml"));
         Scene addProductScene = new Scene(addProducts, 1160,550);
         Stage addProductWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -188,8 +189,8 @@ public class MainScreenController implements Initializable {
 
     // Modify Product
     @FXML
-    void MainScrProductMod(ActionEvent actionEvent) throws IOException {
-        Product modifyProduct = MainProducts.getSelectionModel().getSelectedItem();
+    void mainScrProdMod(ActionEvent actionEvent) throws IOException {
+        Product modifyProduct = mainProds.getSelectionModel().getSelectedItem();
         if (modifyProduct == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -207,8 +208,8 @@ public class MainScreenController implements Initializable {
 
     // Delete Product
     @FXML
-    void MainScrProductDel(ActionEvent actionEvent) {
-        Product product = MainProducts.getSelectionModel().getSelectedItem();
+    void mainScrProdDel(ActionEvent actionEvent) {
+        Product product = mainProds.getSelectionModel().getSelectedItem();
         if (product == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -233,7 +234,7 @@ public class MainScreenController implements Initializable {
 
     // EXIT BUTTON
     @FXML
-    private void ExitBtn(ActionEvent actionEvent) {
+    private void exitBtn(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initModality(Modality.NONE);
         alert.setTitle("EXIT");

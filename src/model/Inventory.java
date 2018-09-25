@@ -39,32 +39,19 @@ public class Inventory {
         productInventory.remove(product);
     }
 
-    public static boolean validateProdRemoval(Product product) {
-        boolean foundProduct = false;
-        int productID = product.getProductID();
-        for (int i = 0; i < productInventory.size(); i++) {
-            if (productInventory.get(i).getProductID() == productID) {
-                if (!productInventory.get(i).getProductParts().isEmpty()) {
-                    foundProduct = true;
-                }
-            }
-        }
-        return foundProduct;
-    }
-
-    public static int lookupProduct(String searchProduct) {
+    public static int searchProd(String sProd) {
         boolean foundProduct = false;
         int index = 0;
-        if (isInteger(searchProduct)) {
+        if (isInteger(sProd)) {
             for (int i = 0; i < productInventory.size(); i++) {
-                if (Integer.parseInt(searchProduct) == productInventory.get(i).getProductID()) {
+                if (Integer.parseInt(sProd) == productInventory.get(i).getProductID()) {
                     index = 1;
                     foundProduct = true;
                 }
             }
         } else {
             for (int i = 0; i < productInventory.size(); i++) {
-                if (searchProduct.equals(productInventory.get(i).getProductName())) {
+                if (sProd.equals(productInventory.get(i).getProductName())) {
                     index = i;
                     foundProduct = true;
                 }
@@ -79,7 +66,7 @@ public class Inventory {
         }
     }
 
-    public static void updateProduct (int index, Product product) {
+    public static void updateProd (int index, Product product) {
         productInventory.set(index, product);
     }
 
@@ -92,30 +79,20 @@ public class Inventory {
         partInventory.remove(part);
     }
 
-    public static boolean validatePartRemoval(Part part) {
-        boolean foundPart = false;
-        for (int i = 0; i < productInventory.size(); i++) {
-            if (productInventory.get(i).getProductParts().contains(part)) {
-                foundPart = true;
-            }
-        }
-        return foundPart;
-    }
-
-    public static int lookupPart(String searchPart) {
+    public static int searchPart(String sPart) {
         boolean foundPart = false;
         int index = 0;
-        if (isInteger(searchPart)) {
+        if (isInteger(sPart)) {
             for (int i = 0; i < partInventory.size(); i++) {
-                if (Integer.parseInt(searchPart) == partInventory.get(i).getPartID()) {
+                if (Integer.parseInt(sPart) == partInventory.get(i).getPartID()) {
                     index = i;
                     foundPart = true;
                 }
             }
         } else {
             for (int i = 0; i < partInventory.size(); i++) {
-                searchPart = searchPart.toLowerCase();
-                if (searchPart.equals(partInventory.get(i).getPartName().toLowerCase())) {
+                sPart = sPart.toLowerCase();
+                if (sPart.equals(partInventory.get(i).getPartName().toLowerCase())) {
                     index = i;
                     foundPart = true;
                 }
