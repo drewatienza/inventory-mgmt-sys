@@ -30,9 +30,9 @@ import java.util.ResourceBundle;
 public class AddProductController implements Initializable {
 
 
-    private ObservableList<Part> currentParts = FXCollections.observableArrayList();
-    private ObservableList<Part> tempPartList = FXCollections.observableArrayList();
-    private String isValidException = new String();
+    private ObservableList<Part> presentParts = FXCollections.observableArrayList();
+    private ObservableList<Part> tempParts = FXCollections.observableArrayList();
+    private String exception = new String();
     private int productID;
 
     @FXML
@@ -74,7 +74,7 @@ public class AddProductController implements Initializable {
     @FXML
     void addProdSearch(ActionEvent actionEvent) {
         String searchPart = addProdSearchField.getText();
-        ModifyProductController.prodSearchHelper(searchPart, tempPartList, addProdAddTV);
+        ModifyProductController.prodSearchHelper(searchPart, tempParts, addProdAddTV);
     }
 
     // ADD BUTTON
@@ -87,20 +87,20 @@ public class AddProductController implements Initializable {
             alert.setHeaderText("Part Addition Error");
             alert.setContentText("No part was selected.");
         } else {
-            currentParts.add(part);
+            presentParts.add(part);
             updateDelProdAddTV();
         }
     }
 
     public void updateDelProdAddTV() {
-        delProdAddTV.setItems(currentParts);
+        delProdAddTV.setItems(presentParts);
     }
 
     // DELETE BUTTON
     @FXML
     void addProdDel(ActionEvent actionEvent) {
         Part part = delProdAddTV.getSelectionModel().getSelectedItem();
-        prodDelAlert(part, currentParts);
+        prodDelAlert(part, presentParts);
     }
 
     static void prodDelAlert(Part part, ObservableList<Part> currentParts) {
@@ -151,22 +151,22 @@ public class AddProductController implements Initializable {
         String prodMin = addProdMinField.getText();
 
         try {
-            isValidException = Product.isValid(
+            exception = Product.isValid(
                     prodName,
                     Integer.parseInt(prodInv),
                     Double.parseDouble(prodPrice),
                     Integer.parseInt(prodMax),
                     Integer.parseInt(prodMin),
-                    currentParts,
-                    isValidException
+                    presentParts,
+                    exception
             );
-            if (isValidException.length() > 0) {
+            if (exception.length() > 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR");
                 alert.setHeaderText("Validation Error");
-                alert.setContentText(isValidException);
+                alert.setContentText(exception);
                 alert.showAndWait();
-                isValidException = "";
+                exception = "";
             } else {
                 Product newProd = new Product();
                 newProd.setProductID(productID);
@@ -175,7 +175,7 @@ public class AddProductController implements Initializable {
                 newProd.setProductPrice(Double.parseDouble(prodPrice));
                 newProd.setProductMax(Integer.parseInt(prodMax));
                 newProd.setProductMin(Integer.parseInt(prodMin));
-                newProd.setProdParts(currentParts);
+                newProd.setProdParts(presentParts);
                 Inventory.addProduct(newProd);
 
                 Parent save = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
@@ -192,6 +192,7 @@ public class AddProductController implements Initializable {
             alert.showAndWait();
         }
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -218,6 +219,6 @@ public class AddProductController implements Initializable {
     }
 
     public void updateDeletePartTV() {
-        delProdAddTV.setItems(currentParts);
+        delProdAddTV.setItems(presentParts);
     }
 }

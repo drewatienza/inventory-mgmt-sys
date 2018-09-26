@@ -28,9 +28,9 @@ import java.util.ResourceBundle;
 
 public class ModifyProductController implements Initializable {
 
-    private ObservableList<Part> currentParts = FXCollections.observableArrayList();
-    private ObservableList<Part> tempPartList = FXCollections.observableArrayList();
-    private String isValidException = new String();
+    private ObservableList<Part> presentParts = FXCollections.observableArrayList();
+    private ObservableList<Part> tempParts = FXCollections.observableArrayList();
+    private String exception = new String();
     private int productID;
     private int prodIndex = prodToModifyIndex();
 
@@ -73,7 +73,7 @@ public class ModifyProductController implements Initializable {
     @FXML
     void modProdSearch(ActionEvent actionEvent) {
         String searchPart = modProdSearchField.getText();
-        prodSearchHelper(searchPart, tempPartList, addProdModTV);
+        prodSearchHelper(searchPart, tempParts, addProdModTV);
     }
 
     static void prodSearchHelper(String searchPart, ObservableList<Part> tempPartList, TableView<Part> addProdModTV) {
@@ -82,7 +82,7 @@ public class ModifyProductController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Search Error");
-            alert.setContentText("The part you entered does not match any current parts.");
+            alert.setContentText("The part you searched was not found.");
             alert.showAndWait();
         } else {
             partIndex = Inventory.searchPart(searchPart);
@@ -102,20 +102,20 @@ public class ModifyProductController implements Initializable {
             alert.setHeaderText("Part Addition Error");
             alert.setContentText("No part was selected.");
         } else {
-            currentParts.add(part);
+            presentParts.add(part);
             updateDelProdModTV();
         }
     }
 
     public void updateDelProdModTV() {
-        delProdModTV.setItems(currentParts);
+        delProdModTV.setItems(presentParts);
     }
 
     // DELETE BUTTON
     @FXML
     void modProdDel(ActionEvent actionEvent) {
         Part part = delProdModTV.getSelectionModel().getSelectedItem();
-        AddProductController.prodDelAlert(part, currentParts);
+        AddProductController.prodDelAlert(part, presentParts);
     }
 
     // CANCEL BUTTON
@@ -146,22 +146,22 @@ public class ModifyProductController implements Initializable {
         String prodMin = modProdMinField.getText();
 
         try {
-            isValidException = Product.isValid(
+            exception = Product.isValid(
                     prodName,
                     Integer.parseInt(prodInv),
                     Double.parseDouble(prodPrice),
                     Integer.parseInt(prodMax),
                     Integer.parseInt(prodMin),
-                    currentParts,
-                    isValidException
+                    presentParts,
+                    exception
             );
-            if (isValidException.length() > 0) {
+            if (exception.length() > 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR");
                 alert.setHeaderText("Validation Error");
-                alert.setContentText(isValidException);
+                alert.setContentText(exception);
                 alert.showAndWait();
-                isValidException = "";
+                exception = "";
             } else {
                 Product newProd = new Product();
                 newProd.setProductID(productID);
@@ -170,7 +170,7 @@ public class ModifyProductController implements Initializable {
                 newProd.setProductPrice(Double.parseDouble(prodPrice));
                 newProd.setProductMax(Integer.parseInt(prodMax));
                 newProd.setProductMin(Integer.parseInt(prodMin));
-                newProd.setProdParts(currentParts);
+                newProd.setProdParts(presentParts);
                 Inventory.addProduct(newProd);
 
                 Parent save = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
@@ -217,6 +217,6 @@ public class ModifyProductController implements Initializable {
     }
 
     public void updateDeletePartTV() {
-        delProdModTV.setItems(currentParts);
+        delProdModTV.setItems(presentParts);
     }
 }

@@ -139,7 +139,7 @@ public class ModifyPartController implements Initializable {
     void modPartCancelBtn(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancel");
-        alert.setHeaderText("Confirm Cancel");
+        alert.setHeaderText("Confirm Cancellation");
         alert.setContentText("Are you sure you want to cancel adding a new part?");
         Optional<ButtonType> confirm = alert.showAndWait();
 
