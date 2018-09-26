@@ -79,57 +79,76 @@ public class ModifyPartController implements Initializable {
         String partMin = modPartMinField.getText();
         String partSwitch = switchModPartField.getText();
 
-        try {
-            exception = Part.isValid(
-                    partName,
-                    Integer.parseInt(partInv),
-                    Double.parseDouble(partPrice),
-                    Integer.parseInt(partMax),
-                    Integer.parseInt(partMin),
-                    exception
-            );
-            if(exception.length() > 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error Adding Part");
-                alert.setContentText(exception);
-                alert.showAndWait();
-                exception = "";
-            } else {
-                if (inHouse == true) {
-                    Inhouse inPart = new Inhouse();
-                    inPart.setPartID(partID);
-                    inPart.setPartName(partName);
-                    inPart.setPartPrice(Double.parseDouble(partPrice));
-                    inPart.setPartInStock(Integer.parseInt(partInv));
-                    inPart.setPartMax(Integer.parseInt(partMax));
-                    inPart.setPartMin(Integer.parseInt(partMin));
-                    inPart.setMachineID(Integer.parseInt(partSwitch));
-                    Inventory.addPart(inPart);
-                } else {
-                    Outsourced outPart = new Outsourced();
-                    outPart.setPartID(partID);
-                    outPart.setPartName(partName);
-                    outPart.setPartPrice(Double.parseDouble(partPrice));
-                    outPart.setPartInStock(Integer.parseInt(partInv));
-                    outPart.setPartMax(Integer.parseInt(partMax));
-                    outPart.setPartMin(Integer.parseInt(partMin));
-                    outPart.setCompanyName(partSwitch);
-                    Inventory.addPart(outPart);
-                }
+        boolean isValid = true;
+        StringBuilder err = new StringBuilder();
 
-                Parent partSave = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-                Scene s = new Scene(partSave);
-                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                window.setScene(s);
-                window.show();
-            }
-        } catch (NumberFormatException e) {
+        String nameVal = Part.valName(partName);
+        if (!nameVal.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error Adding Part");
-            alert.setContentText("Form cannot contain blank fields.");
+            alert.setContentText(nameVal);
             alert.showAndWait();
+
+            isValid = false;
+        }
+
+        String maxMinVal = Part.valMaxMin(partMax, partMin);
+        if (!maxMinVal.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error Adding Part");
+            alert.setContentText(maxMinVal);
+            alert.showAndWait();
+
+            isValid = false;
+        }
+
+        String invVal = Part.valInv(partInv, partMax, partMin);
+        errorMessage(invVal);
+
+        String priceVal = Part.valPrice(partPrice);
+        errorMessage(priceVal);
+
+        if (isValid) {
+            if (inHouse == true) {
+                Inhouse inPart = new Inhouse();
+                inPart.setPartID(partID);
+                inPart.setPartName(partName);
+                inPart.setPartPrice(Double.parseDouble(partPrice));
+                inPart.setPartInStock(Integer.parseInt(partInv));
+                inPart.setPartMax(Integer.parseInt(partMax));
+                inPart.setPartMin(Integer.parseInt(partMin));
+                inPart.setMachineID(Integer.parseInt(partSwitch));
+                Inventory.addPart(inPart);
+            } else {
+                Outsourced outPart = new Outsourced();
+                outPart.setPartID(partID);
+                outPart.setPartName(partName);
+                outPart.setPartPrice(Double.parseDouble(partPrice));
+                outPart.setPartInStock(Integer.parseInt(partInv));
+                outPart.setPartMax(Integer.parseInt(partMax));
+                outPart.setPartMin(Integer.parseInt(partMin));
+                outPart.setCompanyName(partSwitch);
+                Inventory.addPart(outPart);
+            }
+            Parent partSave = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            Scene s = new Scene(partSave);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(s);
+            window.show();
+        }
+    }
+
+    private void errorMessage(String priceVal) {
+        boolean isValid;
+        if (!priceVal.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error Adding Part");
+            alert.setContentText(priceVal);
+
+            isValid = false;
         }
     }
 

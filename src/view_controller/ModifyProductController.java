@@ -145,49 +145,67 @@ public class ModifyProductController implements Initializable {
         String prodMax = modProdMaxField.getText();
         String prodMin = modProdMinField.getText();
 
-        try {
-            exception = Product.isValid(
-                    prodName,
-                    Integer.parseInt(prodInv),
-                    Double.parseDouble(prodPrice),
-                    Integer.parseInt(prodMax),
-                    Integer.parseInt(prodMin),
-                    presentParts,
-                    exception
-            );
-            if (exception.length() > 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERROR");
-                alert.setHeaderText("Validation Error");
-                alert.setContentText(exception);
-                alert.showAndWait();
-                exception = "";
-            } else {
-                Product newProd = new Product();
-                newProd.setProductID(productID);
-                newProd.setProductName(prodName);
-                newProd.setProductInStock(Integer.parseInt(prodInv));
-                newProd.setProductPrice(Double.parseDouble(prodPrice));
-                newProd.setProductMax(Integer.parseInt(prodMax));
-                newProd.setProductMin(Integer.parseInt(prodMin));
-                newProd.setProdParts(presentParts);
-                Inventory.addProduct(newProd);
+        boolean isValid = true;
+        StringBuilder err = new StringBuilder();
 
-                Parent save = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-                Scene s = new Scene(save);
-                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                window.setScene(s);
-                window.show();
-            }
-        } catch (NumberFormatException e) {
+        String nameVal = Product.valName(prodName);
+        if (!nameVal.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setHeaderText("Error");
-            alert.setContentText("Form cannot contain blank fields.");
+            alert.setTitle("Error");
+            alert.setHeaderText("Error Adding Part");
+            alert.setContentText(nameVal);
             alert.showAndWait();
+
+            isValid = false;
+        }
+
+        String maxMinVal = Product.valMaxMin(prodMax, prodMin);
+        if (!maxMinVal.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error Adding Part");
+            alert.setContentText(maxMinVal);
+            alert.showAndWait();
+
+            isValid = false;
+        }
+
+        String invVal = Product.valInv(prodInv, prodMax, prodMin);
+        errorMessage(invVal);
+
+        String priceVal = Product.valPrice(prodPrice);
+        errorMessage(priceVal);
+
+        if (isValid) {
+            Product newProd = new Product();
+            newProd.setProductID(productID);
+            newProd.setProductName(prodName);
+            newProd.setProductInStock(Integer.parseInt(prodInv));
+            newProd.setProductPrice(Double.parseDouble(prodPrice));
+            newProd.setProductMax(Integer.parseInt(prodMax));
+            newProd.setProductMin(Integer.parseInt(prodMin));
+            newProd.setProdParts(presentParts);
+            Inventory.addProduct(newProd);
+
+            Parent save = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            Scene s = new Scene(save);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(s);
+            window.show();
         }
     }
 
+    private void errorMessage(String priceVal) {
+        boolean isValid;
+        if (!priceVal.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error Adding Part");
+            alert.setContentText(priceVal);
+
+            isValid = false;
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

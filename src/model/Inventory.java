@@ -9,7 +9,7 @@ public class Inventory {
     private static ObservableList<Part> partInv = FXCollections.observableArrayList();
 
     private static int partIdCount = 0;
-    private static int productIdCount = 0;
+    private static int prodIdCount = 0;
 
     // GETTERS
     public static ObservableList<Product> getProdInv() {
@@ -26,8 +26,8 @@ public class Inventory {
     }
 
     public static int getProductIdCount() {
-        productIdCount++;
-        return productIdCount;
+        prodIdCount++;
+        return prodIdCount;
     }
 
     // PRODUCT
@@ -65,19 +65,6 @@ public class Inventory {
             return -1;
         }
     }
-
-//    public static boolean prodDelete(Product product) {
-//        boolean foundProd = false;
-//        int productID = product.getProductID();
-//        for (int i = 0; i < productInventory.size(); i++) {
-//            if (productInventory.get(i).getProductID() == productID) {
-//                if (!productInventory.get(i).getProductParts().isEmpty()) {
-//                    foundProd = true;
-//                }
-//            }
-//        }
-//        return foundProd;
-//    }
 
     public static void updateProd (int index, Product product) {
         prodInv.set(index, product);

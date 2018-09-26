@@ -95,30 +95,64 @@ public abstract class Part {
         this.max.set(max);
     }
 
-    // VALIDATION
-    public static String isValid (
-            String name,
-            int inv,
-            double price,
-            int max,
-            int min,
-            String errMessage
-    ) {
-        if (name == null) {
-            errMessage = "The name field is required.";
+
+    // VALIDATION MESSAGE
+    public static String valName (String name) {
+        StringBuilder err = new StringBuilder();
+        if (name.isEmpty()) {
+            err.append("The form cannot have blank fields.");
         }
-        if (inv < 1) {
-            errMessage = "The inventory cannot have less than 1.";
+        return err.toString();
+    }
+
+    public static String valMaxMin (String max, String min) {
+        int maxVal = Integer.parseInt(max);
+        int minVal = Integer.parseInt(min);
+        StringBuilder err = new StringBuilder();
+        if (max.isEmpty() || min.isEmpty()) {
+            err.append("The form cannot have blank fields.");
         }
-        if (price <= 0) {
-            errMessage = "The price must be more than $0.";
+
+        if (maxVal < minVal) {
+            err.append("The Min value cannot be greater than the Max value.");
         }
-        if (inv < min || inv > max) {
-            errMessage = "The inventory must be between the Min and Max values.";
+
+        return err.toString();
+    }
+
+    public static String valInv (String inv, String max, String min) {
+        int maxVal = Integer.parseInt(max);
+        int minVal = Integer.parseInt(min);
+        int invValue = Integer.parseInt(inv);
+        StringBuilder err = new StringBuilder();
+        if (inv.isEmpty()) {
+            err.append("The form cannot have blank fields.");
         }
-        if (max < min) {
-            errMessage = "The Min value cannot be greater than the Max value.";
+
+        if (invValue < 1) {
+            err.append("The inventory cannot have less than 1.");
         }
-        return  errMessage;
+
+        if (invValue < minVal || invValue > maxVal){
+            err.append("The inventory value must be between the Min or Max values.");
+        }
+        return err.toString();
+    }
+
+    public static String valPrice (String price) {
+        double priceVal = Double.parseDouble(price);
+        StringBuilder err = new StringBuilder();
+        if (price.isEmpty()) {
+            err.append("The form cannot have blank fields.");
+        }
+
+        if (price.contains("$")) {
+            err.append("The price must be a number and cannot contain the $ sign.");
+        }
+
+        if (priceVal <= 0) {
+            err.append("The price must be more than $0.");
+        }
+        return err.toString();
     }
 }
