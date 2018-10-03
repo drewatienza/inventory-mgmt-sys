@@ -185,7 +185,7 @@ public class ModifyProductController implements Initializable {
             newProd.setProductMax(Integer.parseInt(prodMax));
             newProd.setProductMin(Integer.parseInt(prodMin));
             newProd.setProdParts(presentParts);
-            Inventory.addProduct(newProd);
+            Inventory.updateProd(prodIndex, newProd);
 
             Parent save = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
             Scene s = new Scene(save);
