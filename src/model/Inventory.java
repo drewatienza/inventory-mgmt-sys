@@ -107,6 +107,10 @@ public class Inventory {
         }
     }
 
+    public static void updatePart (int index, Part part) {
+        partInv.set(index, part);
+    }
+
     // HELPER METHOD
     public static boolean isInteger(String input) {
         try {

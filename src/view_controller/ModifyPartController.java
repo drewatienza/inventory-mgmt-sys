@@ -120,7 +120,7 @@ public class ModifyPartController implements Initializable {
                 inPart.setPartMax(Integer.parseInt(partMax));
                 inPart.setPartMin(Integer.parseInt(partMin));
                 inPart.setMachineID(Integer.parseInt(partSwitch));
-                Inventory.addPart(inPart);
+                Inventory.updatePart(partIndex, inPart);
             } else {
                 Outsourced outPart = new Outsourced();
                 outPart.setPartID(partID);
@@ -130,7 +130,7 @@ public class ModifyPartController implements Initializable {
                 outPart.setPartMax(Integer.parseInt(partMax));
                 outPart.setPartMin(Integer.parseInt(partMin));
                 outPart.setCompanyName(partSwitch);
-                Inventory.addPart(outPart);
+                Inventory.updatePart(partIndex, outPart);
             }
             Parent partSave = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
             Scene s = new Scene(partSave);
